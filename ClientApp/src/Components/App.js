@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import { GlobalProvider } from '../context/GlobalState';
 import Home from './Home';
 
 // import ReactDOM from 'react-dom';
 import Navbar from './Navbar';
 import SidBar from './SidBar';
+import { Provider } from "react-redux";
+import { store } from "../actions/store";
 
 class App extends Component {
 
@@ -12,10 +14,11 @@ class App extends Component {
     return (
 
       <div className="main-wrapper">
-        <Navbar userName="Hossam" />
-        <SidBar />
-        <Home/>
-
+        <Provider store={store}>
+          <Navbar userName="Hossam" />
+          <SidBar />
+          <Home />
+        </Provider>
       </div>
     );
   }

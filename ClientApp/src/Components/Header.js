@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import NewAccount from './NewAccount';
 
 class Header extends Component {
         constructor(props) {
@@ -11,34 +12,34 @@ class Header extends Component {
                         const navItems = props.navItems;
                         const currentPage = props.currentPage;
                         console.log(navItems);
-                        const listItems = navItems.map((item) =>
-                                <li class="breadcrumb-item"><a href={item.Url}>{item.Name}</a></li>
+                        const listItems = navItems.map((item,index) =>
+                                <li className="breadcrumb-item" key={index}><a href={item.Url}>{item.Name}</a></li>
                         );
                         return (
-                                <div class="col">
-                                        <h3 class="page-title">{currentPage.Name}</h3>
-                                        <ul class="breadcrumb">
+                                <div className="col">
+                                        <h3 className="page-title">{currentPage.Name}</h3>
+                                        <ul className="breadcrumb">
                                                 {listItems}
-                                                <li class="breadcrumb-item active">{currentPage.Name}</li>
+                                                <li className="breadcrumb-item active">{currentPage.Name}</li>
                                         </ul>
                                 </div>
                         )
                 }
 
                 return (
+                        <div>
+                            
+                                <div className="page-header">
 
-                        <div class="page-header">
+                                        <div className="row align-items-center">
 
-
-                                <div class="row align-items-center">
-
-                                        <PageNav navItems={this.props.navItems} currentPage={this.props.currentPage} />
-                                        <div class="col-auto float-right ml-auto">
-                                                <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_salary"><i class="fa fa-plus"></i> Add Account</a>
+                                                <PageNav navItems={this.props.navItems} currentPage={this.props.currentPage} />
+                                                <div className="col-auto float-right ml-auto">
+                                                        <a href="#" className="btn add-btn" data-toggle="modal" data-target="#new_account"><i className="fa fa-plus"></i> Add Account</a>
+                                                </div>
                                         </div>
                                 </div>
                         </div>
-
                 );
         }
 }

@@ -23,9 +23,10 @@ import * as actions from "../actions/account";
 
 // }
 const Accounts = (props) => {
-
+        
         useEffect(() => {
-                props.getAllSubAccounts()
+                // props = props
+                props.getAllMasterAccounts()
         }, [])
 
         const url = "https://localhost:5001/api/"
@@ -44,22 +45,22 @@ const Accounts = (props) => {
         // }
 
 
-        function editClick(account) {
-                console.log("hjjj");
-                console.log(account);
-        }
+        // function editClick(account) {
+        //         console.log("hjjj");
+        //         console.log(account);
+        // }
 
-        function TableBody(props) {
+        // function TableBody(props) {
 
-                const accounts = props.accounts;
-                console.log(accounts);
+        //         const accounts = this.props.accounts;
+        //         console.log(accounts);
 
 
-                // console.log(listItems);
-                return (
-                        accounts
-                );
-        }
+        //         // console.log(listItems);
+        //         return (
+        //                 accounts
+        //         );
+        // }
 
 
         // const [username, setUserName] = useState(initialState)
@@ -74,7 +75,7 @@ const Accounts = (props) => {
 
                 <div>
                         {/* <NewAccount/> */}
-                        <NewAccount accounts={props.list} account={props.item} />
+                        <NewAccount masterAccounts={props.list} account={props.item} />
                         <DeleteModal modelName={page} />
                         <Header navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
                         { Name: 'Accounts', url: 'accounts' }]}
@@ -103,7 +104,7 @@ const Accounts = (props) => {
 
                                                         <tbody id="emp-tbody">
                                                                 {
-                                                                        props.list.map((account,index) =>
+                                                                        props.list.map((account, index) =>
 
                                                                                 <tr key={index}>
                                                                                         <td>{account.Id}</td>
@@ -166,12 +167,15 @@ const Accounts = (props) => {
         );
 
 }
-const stasteProps = state => ({
+const stasteProps = state => (Accounts.propTypes={
         list: state.AppReducer.list,
-        item:state.AppReducer.item
+        item: state.AppReducer.item,
 })
 
-const actionProps = {
-        getAllSubAccounts: actions.getAllSub
+const actionProps = Accounts.propTypes={
+        getAllMasterAccounts: actions.getAllMaster
 }
+// Accounts.propTypes = {
+//         names: PropTypes.array.isRequired,
+//     };
 export default connect(stasteProps, actionProps)(Accounts);

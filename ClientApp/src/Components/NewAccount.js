@@ -4,9 +4,20 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, alpha } from '@material-ui/core/styles';
 import { Grid, TableCell } from '@material-ui/core';
-
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker, } from '@material-ui/pickers';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+// import { alpha } from '@material-ui/core/styles'
+import { connect } from 'react-redux';
+import useForm from './useForm';
+// import { PropType } from "prop-types";
+import PropTypes from "prop-types";
+import ReactDOM from 'react-dom';
+var $ = window.jQuery
 // class NewAccount extends Component {
 //         constructor(props) {
 //                 super(props);
@@ -17,25 +28,65 @@ import { Grid, TableCell } from '@material-ui/core';
 //         }
 
 
-
-
-
 const useStyles = makeStyles((theme) => ({
         formControl: {
                 margin: theme.spacing(1),
-                minWidth: 120,
+                minWidth: 180,
         },
         selectEmpty: {
                 marginTop: theme.spacing(2),
         },
 }));
 
-export default function NewAccount(props) {
+const initialFieldValues = {
+        Id: '',
+        Cid: '',
+        ParentId: 0,
+        ParentCid: '',
+        AccountName: '',
+        Type: 0,
+        IsMaster: 0,
+        OpeningAmount: 0,
+        OpeningAmountType: 0,
+        Satus: 0,
+        Description: '',
+        CreateDate: new Date(),
 
+}
+
+
+const NewAccount = (props) => {
+
+        const {
+                values,
+                setValues,
+                handelInputChange
+        } = useForm(initialFieldValues);
+        // const [values, setValues] = useState(initialFieldValues);
+
+        // const handelInputChange = (e) => {
+        //         console.log(e.target);
+        //         // const [name, value] = e.target;
+        //         // const name = e.target.name;
+        //         // const value = e.target.value;
+        //         // return (
+        //         setValues({
+        //                ...values,
+        //                 [e.target.name]: e.target.value
+        //         })
+        //         // );
+        // }
         const classes = useStyles();
-        const [accountId, setAccount] = useState(0);
-        const [id, setId] = useState(0);
-        const [accountName, setAccountName] = useState('');
+        // const [values, setValues] = useState(initialFieldValues);
+        // const [account, setAccount] = useState({});
+        // const [Id, setId] = useState(0);
+        // const [Cid, setCid] = useState(0);
+        // const [ParentId, setParentId] = useState(0);
+        // const [ParentCid, setParentCid] = useState(0);
+        // const [AccountName, setAccountName] = useState('');
+        // const [OpiningAmount, setOpiningAmount] = useState('');
+        // const [OpiningAmountType, setOpiningAmountType] = useState(0);
+        // const [Satus, setSatus] = useState('');
 
         useEffect(() => {
                 //      setId(props.id>0?props.id:0);
@@ -43,15 +94,20 @@ export default function NewAccount(props) {
                 // setAccount(props.account.Id)
                 // setId(props.account.Id)
         })
+        const submitClick = (e) => {
+                e.preventDefault()
+                console.log(values);
+        }
 
-        const handleChange = (event) => {
-                setId(event.target.value);
-                console.log(event.target.value);
-                // console.log(id);
-        };
-        const handleChangeAccountName = (event) => {
-                setAccountName(event.target.value);
-        };
+
+        // const handleChange = (event) => {
+        //         setId(event.target.value);
+        //         console.log(event.target.value);
+        //         // console.log(id);
+        // };
+        // const handleChangeAccountName = (event) => {
+        //         setAccountName(event.target.value);
+        // };
 
 
         // function ToList(props) {
@@ -93,6 +149,7 @@ export default function NewAccount(props) {
 
 
                                                                         <button type="button" style={{ height: 'fit-content' }} className="btn btn-success ml-1"
+                                                                                onClick={submitClick}
                                                                         //       (click)="saveClick()" [disabled]="form.invalid"
                                                                         >
                                                                                 Add
@@ -118,7 +175,7 @@ export default function NewAccount(props) {
                                                 </div >
 
                                                 <div className="modal-body">
-                                                        <form >
+                                                        <form onSubmit={submitClick}>
 
                                                                 <div className="row">
                                                                         <div className="col-md-12 col-lg-6:12 col-xl-12">
@@ -129,131 +186,208 @@ export default function NewAccount(props) {
 
                                                                                                         <div className="col-md-6">
                                                                                                                 <div className="form-group  form-focus select-focus">
-                                                                                                                        <input className="form-control" name="AccountId"
-                                                                                                                                value={accountName} onChange={handleChangeAccountName}
+                                                                                                                        <input className="form-control" name="AccountName"
+                                                                                                                                value={values.AccountName} onChange={handelInputChange}
                                                                                                                                 required />
                                                                                                                         <label className="focus-label">
                                                                                                                                 AccountName
                                                                                                                         </label>
                                                                                                                 </div>
                                                                                                         </div>
-
-                                                                                                        {/* {console.log(account)} */}
                                                                                                         <div className="col-md-6">
                                                                                                                 <FormControl className={classes.formControl}>
-                                                                                                                        <InputLabel id="demo-simple-select-helper-label">Account {id}</InputLabel>
-                                                                                                                        {/* <TableCell></TableCell>
+                                                                                                                        <InputLabel id="Type"> Account Type</InputLabel>
+                                                                                                                        <Select
+                                                                                                                                labelId="Type-helper-label"
+                                                                                                                                id="Type-helper"
+                                                                                                                                value={values.Type}
+                                                                                                                                name="Type"
+                                                                                                                                onChange={handelInputChange}>
+                                                                                                                                <MenuItem value={0} >Debit</MenuItem>
+                                                                                                                                <MenuItem value={1} >Credit</MenuItem>
+                                                                                                                        </Select>
+                                                                                                                        {/* <FormHelperText>Some important helper text</FormHelperText> */}
+                                                                                                                </FormControl>
+                                                                                                        </div>
+                                                                                                        {/* {console.log(account)} */}
+                                                                                                        {/* <TableCell></TableCell>
                                                                                                                     <Grid></Grid>
                                                                                                                 <Grid></Grid> */}
-                                                                                                                        {/* <ToList accounts={props.accounts} /> */}
+                                                                                                        {/* <ToList accounts={props.accounts} /> */}
 
-                                                                                                                        {/* {console.log()} */}
+                                                                                                        {/* {console.log()} */}
+                                                                                                </div >
+
+
+                                                                                                <div className="row">
+
+                                                                                                        <div className="col-md-6">
+                                                                                                                <FormControl className={classes.formControl}>
+                                                                                                                        <InputLabel id="demo-simple-select-helper-label">Parent Account</InputLabel>
+
                                                                                                                         <Select
                                                                                                                                 labelId="demo-simple-select-helper-label"
                                                                                                                                 id="demo-simple-select-helper"
+                                                                                                                                name="ParentId"
                                                                                                                                 // defaultValue={accountId}
                                                                                                                                 // aria-controls={false}
-                                                                                                                                value={id}
-                                                                                                                                onChange={handleChange}>
+                                                                                                                                value={values.ParentId}
+                                                                                                                                onChange={handelInputChange}>
                                                                                                                                 {
-                                                                                                                                        props.accounts.map((account, index) =>
+                                                                                                                                        props.masterAccounts.map((account, index) =>
                                                                                                                                                 <MenuItem value={account.Id} key={index}>{account.AccountName}</MenuItem>
                                                                                                                                         )
                                                                                                                                 }
                                                                                                                         </Select>
-
-                                                                                                                        {/* <MenuItem value={20}>Twenty</MenuItem>
-                                                                                                                                <MenuItem value={30}>Thirty</MenuItem> */}
-
-                                                                                                                        <FormHelperText>Some important helper text</FormHelperText>
+                                                                                                                        {/* <FormHelperText>Some important helper text</FormHelperText> */}
                                                                                                                 </FormControl>
 
-                                                                                                                {/* <div className="form-group  form-focus select-focus">
-
-                                                                                                                                <select class="select">
-                                                                                                                                        <option>Please Select</option>
-                                                                                                                                        <option selected>Barry Cuda</option>
-                                                                                                                                        <option>Tressa Wexler</option>
-                                                                                                                                </select>
-                                                                                                                                <label className="focus-label" >PARENTACCOUNT <span class="text-danger">*</span></label>
-                                                                                                                        </div> */}
-
                                                                                                         </div>
-                                                                                                </div >
-
-
-                                                                                                <div className="row">
-
                                                                                                         <div className="col-md-6">
 
-                                                                                                                <div className="form-group  form-focus">
-                                                                                                                        <input type="checkbox" name="IsMaster" />
-                                                                                                                        <label className="focus-label"> ISMASTER </label>
-                                                                                                                </div>
+                                                                                                                {/* <div className="form-group  form-focus"> */}
+                                                                                                                <FormControlLabel
+                                                                                                                        control={
+                                                                                                                                <Checkbox
+                                                                                                                                        // defaultChecked
+                                                                                                                                        name="IsMaster"
+                                                                                                                                        value={values.IsMaster == 0 ? 1 : 0}
+                                                                                                                                        onChange={handelInputChange}
+                                                                                                                                        color="primary"
+                                                                                                                                        inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                                                                                                                />
+                                                                                                                        }
+                                                                                                                        label=" Is Parent"
+                                                                                                                />
+                                                                                                                {/* <Checkbox
+                                                                                                                                // defaultChecked
+                                                                                                                                name="IsMaster"
+                                                                                                                                value={values.IsMaster == 0 ? 1 : 0}
+                                                                                                                                onChange={handelInputChange}
+                                                                                                                                color="primary"
+                                                                                                                                inputProps={{ 'aria-label': 'secondary checkbox' }}
+                                                                                                                        />
+                                                                                                                        <input type="checkbox" name="IsMaster"  checked={values.IsMaster} value={values.IsMaster??1:0} onChange={handelInputChange} />
+                                                                                                                        <label className="focus-label" > Is Parent </label> */}
+                                                                                                                {/* </div> */}
                                                                                                         </div>
 
-                                                                                                        <div className="col-md-6">
+                                                                                                        {/* <div className="col-md-6">
                                                                                                                 <div className="form-group  form-focus select-focus">
 
-                                                                                                                        <select className="select" value={0}>
-                                                                                                                                <option value={0}>Please Select</option>
-                                                                                                                                <option value={1}>Barry Cuda</option>
-                                                                                                                                <option value={2}>Tressa Wexler</option>
+                                                                                                                        <select className="select" name="Type" value={values.Type} onChange={handelInputChange}>
+                                                                                                                                <option value={0}>Debit</option>
+                                                                                                                                <option value={1}>Credit</option>
                                                                                                                         </select>
-                                                                                                                        <label className="focus-label" >ACCOUNTTYPE <span className="text-danger">*</span></label>
+                                                                                                                        <label className="focus-label" >Account Type <span className="text-danger">*</span></label>
                                                                                                                 </div >
-                                                                                                        </div >
+                                                                                                        </div > */}
 
                                                                                                 </div >
 
                                                                                                 <div className="row">
 
-                                                                                                        <div className="col-sm-6">
-                                                                                                                <div className="form-group form-focus">
-                                                                                                                        <label>OPENINGAMOUNT YR</label>
+                                                                                                        <div className="col-sm-6 m-t-5">
+                                                                                                                <div className="form-focus select-focus">
+                                                                                                                        {/* <label>Opening Amount YER</label> */}
                                                                                                                         <input className="form-control" style={{ textAlign: 'center' }} type="number"
                                                                                                                                 autoComplete="off"
+                                                                                                                                value={values.OpeningAmount} onChange={handelInputChange}
                                                                                                                                 name="OpeningAmount" min="0.01"
                                                                                                                                 required />
-
+                                                                                                                        <label className="focus-label" >Opening Amount YER </label>
                                                                                                                 </div>
                                                                                                         </div>
 
                                                                                                         <div className="col-md-6">
-                                                                                                                <div className="form-group  form-focus select-focus">
+                                                                                                                {/* <div className="form-group  form-focus select-focus"> */}
 
-                                                                                                                        <select className="select" value={1}>
-                                                                                                                                <option value={0}>Please Select</option>
-                                                                                                                                <option value={1}>Barry Cuda</option>
-                                                                                                                                <option value={2}>Tressa Wexler</option>
-                                                                                                                        </select>
-                                                                                                                        <label className="focus-label" >OPENINGAMOUNTTYPE <span className="text-danger">*</span></label>
+                                                                                                                {/* <select className="select" value={values.OpeningAmountType} name="OpeningAmountType" onChange={handelInputChange}>
+                                                                                                                                <option value={0}>Debit</option>
+                                                                                                                                <option value={1}>Credit</option>
+                                                                                                                        </select> */}
+                                                                                                                <FormControl className={classes.formControl}>
+                                                                                                                        <InputLabel id="OpeningAmountType">Opening Amount Type</InputLabel>
+                                                                                                                        <Select
+                                                                                                                                labelId="OpeningAmountType-helper-label"
+                                                                                                                                id="OpeningAmountType-helper"
+                                                                                                                                value={values.OpeningAmountType}
+                                                                                                                                name="OpeningAmountType"
+                                                                                                                                onChange={handelInputChange}>
+                                                                                                                                <MenuItem value={0} >Debit</MenuItem>
+                                                                                                                                <MenuItem value={1} >Credit</MenuItem>
+                                                                                                                        </Select>
+                                                                                                                        {/* <FormHelperText>Some important helper text</FormHelperText> */}
+                                                                                                                </FormControl>
+
+                                                                                                                {/* <label className="focus-label" >Opening Amount Type <span className="text-danger">*</span></label> */}
 
 
-                                                                                                                </div >
+                                                                                                                {/* </div > */}
                                                                                                         </div >
 
                                                                                                         <div className="col-md-12" style={{ marginTop: '25px' }}>
                                                                                                                 {/* <label className="" >STATEMENT</label> */}
-                                                                                                                <div className="form-group">
-                                                                                                                        <textarea className="form-control" type="text" name="Description"
-                                                                                                                                minLength="3" placeholder="Description">
-                                                                                                                        </textarea>
+                                                                                                                {/* <div className="form-group"> */}
+                                                                                                                <textarea className="form-control" type="text" name="Description"
+                                                                                                                        value={values.Description} onChange={handelInputChange}
+                                                                                                                        minLength="3" placeholder="Description" >
+                                                                                                                </textarea>
 
-                                                                                                                </div>
+                                                                                                                {/* </div> */}
                                                                                                         </div >
 
-                                                                                                        <div className="col-md-6">
-                                                                                                                <div className="form-group">
-                                                                                                                        <label className="col-form-label"> CREATEDDATE</label>
+                                                                                                        <div className="col-md-12">
+                                                                                                                {/* <div className="form-group"> */}
+                                                                                                                {/* <label className="col-form-label"> Created Date</label>
                                                                                                                         <div className="cal-icon">
-                                                                                                                                <input className="form-control datetimepicker studentDate"
+                                                                                                                                { <input className="form-control datetimepicker studentDate"
+                                                                                                                                        value={values.CreateDate} onChange={handelInputChange}
                                                                                                                                         type="text" autoComplete="off"
                                                                                                                                         name="CreateDate"
 
-                                                                                                                                        minLength="10" />
-                                                                                                                        </div>
-                                                                                                                </div>
+                                                                                                                                        minLength="10" /> }
+                                                                                                                        </div> */}
+                                                                                                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                                                                                        <Grid container justifyContent="space-around">
+                                                                                                                                <KeyboardDatePicker
+                                                                                                                                        disableToolbar
+                                                                                                                                        variant="inline"
+                                                                                                                                        format="MM/dd/yyyy"
+                                                                                                                                        margin="normal"
+                                                                                                                                        id="date-picker-inline"
+                                                                                                                                        label="Date picker inline"
+                                                                                                                                        value={values.CreateDate}
+                                                                                                                                        onChange={handelInputChange}
+                                                                                                                                        KeyboardButtonProps={{
+                                                                                                                                                'aria-label': 'change date',
+                                                                                                                                        }}
+                                                                                                                                />
+
+                                                                                                                                <KeyboardDatePicker
+                                                                                                                                        margin="normal"
+                                                                                                                                        id="date-picker-dialog"
+                                                                                                                                        label="Date picker dialog"
+                                                                                                                                        format="MM/dd/yyyy"
+                                                                                                                                        value={values.CreateDate}
+                                                                                                                                        onChange={handelInputChange}
+                                                                                                                                        KeyboardButtonProps={{
+                                                                                                                                                'aria-label': 'change date',
+                                                                                                                                        }}
+                                                                                                                                />
+                                                                                                                                <KeyboardTimePicker
+                                                                                                                                        margin="normal"
+                                                                                                                                        id="time-picker"
+                                                                                                                                        label="Time picker"
+                                                                                                                                        value={values.CreateDate}
+                                                                                                                                        onChange={handelInputChange}
+                                                                                                                                        KeyboardButtonProps={{
+                                                                                                                                                'aria-label': 'change time',
+                                                                                                                                        }}
+                                                                                                                                />
+                                                                                                                        </Grid>
+                                                                                                                </MuiPickersUtilsProvider>
+                                                                                                                {/* </div> */}
                                                                                                         </div>
 
                                                                                                 </div >
@@ -265,7 +399,7 @@ export default function NewAccount(props) {
                                                                 </div >
                                                                 <div className="submit-section" style={{ marginTop: '10px !important' }}>
 
-                                                                        <button id="sendMovement" hidden className="btn btn-primary submit-btn">
+                                                                        <button id="sendMovement" type="submit" hidden className="btn btn-primary submit-btn">
                                                                                 Submit
                                                                         </button>
 
@@ -279,4 +413,8 @@ export default function NewAccount(props) {
         );
 }
 
-// export default NewAccount;
+NewAccount.propTypes = {
+        masterAccounts: PropTypes.array
+}
+export default connect()(NewAccount);
+

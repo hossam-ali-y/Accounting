@@ -3,7 +3,7 @@ import { ACTION_TYPES } from "../actions/account"
 
 const initialState = {
         list: [],
-        item:{}
+        item: {}
 }
 
 export const AppReducer = (state = initialState, action) => {
@@ -12,7 +12,13 @@ export const AppReducer = (state = initialState, action) => {
                         return {
                                 state,
                                 list: action.payload,
-                                item:action.payload[0]
+                                item: action.payload[0]
+                        }
+                case ACTION_TYPES.GET_ALL_MASTER:
+                        return {
+                                state,
+                                list: action.payload,
+                                item: action.payload[0]
                         }
                 case 'addAccount':
                         return {

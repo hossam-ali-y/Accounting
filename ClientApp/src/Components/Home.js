@@ -36,21 +36,21 @@ class Home extends Component {
 
                 const logoAlt = "Logo";
 
-                function ToList(props) {
-                        const accounts = props.accounts;
-                        const listItems = accounts.map((item) =>
-                                <li>{item.AccountName}</li>
-                        );
-                        // const listItems=
-                        // accounts.forEach(account => {
+                // function ToList(props) {
+                //         const accounts = props.accounts;
+                //         const listItems = accounts.map((item) =>
+                //                 <li>{item.AccountName}</li>
+                //         );
+                //         // const listItems=
+                //         // accounts.forEach(account => {
 
-                        //        <li>{account.AccountName}</li>
-                        // });
-                        console.log(listItems);
-                        return (
-                                <ul>{listItems}</ul>
-                        );
-                }
+                //         //        <li>{account.AccountName}</li>
+                //         // });
+                //         console.log(listItems);
+                //         return (
+                //                 <ul>{listItems}</ul>
+                //         );
+                // }
 
 
                 return (

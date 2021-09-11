@@ -4,7 +4,8 @@ export const ACTION_TYPES = {
         ADD: 'AAA',
         EDIT: 'EDIT',
         DELETE: 'DELETE',
-        GET_ALL_SUB: 'GET_ALL_SUB'
+        GET_ALL_SUB: 'GET_ALL_SUB',
+        GET_ALL_MASTER: 'GET_ALL_MASTER'
 }
 
 
@@ -60,6 +61,20 @@ function reload() {
 
 export const getAllSub = () => dispatch => {
         api.account().getAllSub()
+                .then(res => {
+                        dispatch({
+                                type: ACTION_TYPES.GET_ALL_SUB,
+                                payload: res.data
+                        })
+                        reload()
+                        // console.log(res);
+                })
+                .catch(err => console.log(err))
+
+}
+
+export const getAllMaster = () => dispatch => {
+        api.account().getAllMaster()
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.GET_ALL_SUB,

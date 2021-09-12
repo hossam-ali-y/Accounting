@@ -2,6 +2,9 @@
 	"folders": [
 		{
 			"path": "./ClientApp"
+		},
+		{
+			"path": "AccountingAPI"
 		}
 	],
 	"settings": {}

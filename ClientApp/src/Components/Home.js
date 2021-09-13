@@ -12,7 +12,7 @@ class Home extends Component {
                 this.state = {
                         accounts: []
                 }
-                this.getAccoounts();
+                // this.getAccoounts();
         }
 
         url = "https://localhost:5001/api/"

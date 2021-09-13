@@ -1,15 +1,16 @@
 import api from "./api"
 
 export const ACTION_TYPES = {
-        ADD: 'AAA',
+        GET_ALL_SUB: 'GET_ALL_SUB',
+        GET_ALL_MASTER: 'GET_ALL_MASTER',
+        ADD: 'ADD',
         EDIT: 'EDIT',
         DELETE: 'DELETE',
-        GET_ALL_SUB: 'GET_ALL_SUB',
-        GET_ALL_MASTER: 'GET_ALL_MASTER'
 }
 
 
-function reload() {
+export const reload = () => {
+        console.log("reloaded");
         // (document).ready(function () {
         // Datatable
         new window.jQuery.fn.dataTable.Api('.datatable');
@@ -67,7 +68,7 @@ export const getAllSub = () => dispatch => {
                                 payload: res.data
                         })
                         reload()
-                        // console.log(res);
+                        // console.log("reloaded");
                 })
                 .catch(err => console.log(err))
 
@@ -77,10 +78,66 @@ export const getAllMaster = () => dispatch => {
         api.account().getAllMaster()
                 .then(res => {
                         dispatch({
-                                type: ACTION_TYPES.GET_ALL_SUB,
+                                type: ACTION_TYPES.GET_ALL_MASTER,
                                 payload: res.data
                         })
+                        // reload()
+                        // console.log(res);
+                })
+                .catch(err => console.log(err))
+
+}
+
+
+export const addAccount = (account, onSuccess) => dispatch => {
+        console.log(account);
+        api.account().addAccount(account)
+                .then(res => {
+                        dispatch({
+                                type: ACTION_TYPES.ADD,
+                                payload: res.data
+                        })
+                        onSuccess()
+
+                        // console.log(res);
+                })
+                .then(res => {
                         reload()
+                })
+
+                .catch(err => console.log(err))
+
+
+
+}
+
+
+export const editAccount = (id, account, onSuccess) => dispatch => {
+        api.account().editAccount(id, account)
+                .then(res => {
+                        dispatch({
+                                type: ACTION_TYPES.EDIT,
+                                payload: { Id: id, ...account }
+                        })
+                        // reload()
+                        onSuccess()
+                        // console.log(res);
+                })
+                .catch(err => console.log(err))
+
+}
+
+
+export const deleteAccount = (id, onSuccess) => dispatch => {
+        console.log(id);
+        api.account().deleteAccount(id)
+                .then(res => {
+                        dispatch({
+                                type: ACTION_TYPES.DELETE,
+                                payload: id
+                        })
+                        onSuccess()
+                        // reload()
                         // console.log(res);
                 })
                 .catch(err => console.log(err))

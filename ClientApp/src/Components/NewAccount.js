@@ -16,7 +16,8 @@ import { connect } from 'react-redux';
 import useForm from './useForm';
 // import { PropType } from "prop-types";
 import PropTypes from "prop-types";
-import ReactDOM from 'react-dom';
+import * as actions from '../actions/account';
+
 var $ = window.jQuery
 // class NewAccount extends Component {
 //         constructor(props) {
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const initialFieldValues = {
-        Id: '',
+        Id: 0,
         Cid: '',
         ParentId: 0,
         ParentCid: '',
@@ -57,11 +58,38 @@ const initialFieldValues = {
 
 const NewAccount = (props) => {
 
+        useEffect(() => {
+                if (props.currentId != 0) {
+                        setValues({
+                                ...props.list.find(x => x.Id == props.currentId)
+                        })
+                        // console.log(props.list.find(x => x.Id == props.currentId));
+                }
+        }, [props.currentId])
+
+        const classes = useStyles();
+
         const {
                 values,
                 setValues,
-                handelInputChange
-        } = useForm(initialFieldValues);
+                handelInputChange,
+                resetForm
+        } = useForm(initialFieldValues, props.setCurrentId);
+
+        const submitClick = (e) => {
+                e.preventDefault()
+                // console.log(values);
+                const onSuccess = (operation) => {
+                        window.alert("Account " + operation + " successfully");
+                        resetForm()
+                        actions.reload()
+                }
+                if (props.currentId == 0)
+                        props.addAccount(values, onSuccess("Added"))
+                else
+                        props.editAccount(props.currentId, values, onSuccess("Updated"))
+        }
+
         // const [values, setValues] = useState(initialFieldValues);
 
         // const handelInputChange = (e) => {
@@ -76,62 +104,8 @@ const NewAccount = (props) => {
         //         })
         //         // );
         // }
-        const classes = useStyles();
-        // const [values, setValues] = useState(initialFieldValues);
-        // const [account, setAccount] = useState({});
-        // const [Id, setId] = useState(0);
-        // const [Cid, setCid] = useState(0);
-        // const [ParentId, setParentId] = useState(0);
-        // const [ParentCid, setParentCid] = useState(0);
-        // const [AccountName, setAccountName] = useState('');
-        // const [OpiningAmount, setOpiningAmount] = useState('');
-        // const [OpiningAmountType, setOpiningAmountType] = useState(0);
-        // const [Satus, setSatus] = useState('');
-
-        useEffect(() => {
-                //      setId(props.id>0?props.id:0);
-                // console.log(props.id);
-                // setAccount(props.account.Id)
-                // setId(props.account.Id)
-        })
-        const submitClick = (e) => {
-                e.preventDefault()
-                console.log(values);
-        }
 
 
-        // const handleChange = (event) => {
-        //         setId(event.target.value);
-        //         console.log(event.target.value);
-        //         // console.log(id);
-        // };
-        // const handleChangeAccountName = (event) => {
-        //         setAccountName(event.target.value);
-        // };
-
-
-        // function ToList(props) {
-        //         const accounts = props.accounts
-        //         const list = accounts.map((account) =>
-        //                 <MenuItem value={account.Id}>{account.AccountName}</MenuItem>
-        //         )
-        //         // console.log(list);
-        //         return (
-
-        //                 <Select
-        //                         labelId="demo-simple-select-helper-label"
-        //                         id="demo-simple-select-helper"
-        //                         value={id}
-        //                         onChange={handleChange}
-        //                 >
-        //                         <MenuItem value="">
-        //                                 <em>None</em>
-        //                         </MenuItem>
-        //                         {list}
-        //                 </Select>
-
-        //         )
-        // }
         return (
                 <div>
                         <div id="new_account" className="modal custom-modal fade" role="dialog">
@@ -139,7 +113,7 @@ const NewAccount = (props) => {
                                         <div className="modal-content">
                                                 <div className="modal-header">
                                                         <h5 className="modal-title">
-                                                                New Account
+                                                                {props.currentId == 0 ? 'New ' : 'Edit '} Account
                                                                 {/* {{account.Id>0?('EDITACCOUNT'|translate):('NEWACCOUNT'|translate)}} */}
                                                         </h5>
 
@@ -152,11 +126,12 @@ const NewAccount = (props) => {
                                                                                 onClick={submitClick}
                                                                         //       (click)="saveClick()" [disabled]="form.invalid"
                                                                         >
-                                                                                Add
+                                                                                {props.currentId == 0 ? 'Insert ' : 'Edit '}
                                                                                 {/* {{account.Id>0?('EDIT'|translate):('ADD'|translate)}} */}
                                                                         </button>
 
                                                                         <button type="button" style={{ height: 'fit-content' }} className="btn btn-secondary ml-1"
+                                                                                onClick={resetForm}
                                                                         //       [disabled]="account.Id==0" (click)="initial()"
                                                                         > NEW
                                                                         </button>
@@ -203,8 +178,8 @@ const NewAccount = (props) => {
                                                                                                                                 value={values.Type}
                                                                                                                                 name="Type"
                                                                                                                                 onChange={handelInputChange}>
-                                                                                                                                <MenuItem value={0} >Debit</MenuItem>
-                                                                                                                                <MenuItem value={1} >Credit</MenuItem>
+                                                                                                                                <MenuItem value={false} >Debit</MenuItem>
+                                                                                                                                <MenuItem value={true} >Credit</MenuItem>
                                                                                                                         </Select>
                                                                                                                         {/* <FormHelperText>Some important helper text</FormHelperText> */}
                                                                                                                 </FormControl>
@@ -314,8 +289,8 @@ const NewAccount = (props) => {
                                                                                                                                 value={values.OpeningAmountType}
                                                                                                                                 name="OpeningAmountType"
                                                                                                                                 onChange={handelInputChange}>
-                                                                                                                                <MenuItem value={0} >Debit</MenuItem>
-                                                                                                                                <MenuItem value={1} >Credit</MenuItem>
+                                                                                                                                <MenuItem value={false} >Debit</MenuItem>
+                                                                                                                                <MenuItem value={true} >Credit</MenuItem>
                                                                                                                         </Select>
                                                                                                                         {/* <FormHelperText>Some important helper text</FormHelperText> */}
                                                                                                                 </FormControl>
@@ -414,7 +389,21 @@ const NewAccount = (props) => {
 }
 
 NewAccount.propTypes = {
-        masterAccounts: PropTypes.array
+        masterAccounts: PropTypes.array,
+        currentId: PropTypes.number,
+        setCurrentId: PropTypes.func
 }
-export default connect()(NewAccount);
+
+const stasteProps = state => (NewAccount.propTypes = {
+        list: state.AppReducer.list
+        // item: state.AppReducer.item,
+})
+
+const actionProps = NewAccount.propTypes = {
+        addAccount: actions.addAccount,
+        editAccount: actions.editAccount,
+        reload: actions.reload,
+}
+
+export default connect(stasteProps, actionProps)(NewAccount);
 

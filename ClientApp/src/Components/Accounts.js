@@ -23,13 +23,25 @@ import * as actions from "../actions/account";
 
 // }
 const Accounts = (props) => {
-        
+
+        const [currentId, setCurrentId] = useState(0)
+
         useEffect(() => {
                 // props = props
+                props.getAllSubAccounts()
                 props.getAllMasterAccounts()
         }, [])
 
+
+        const onDeleteClick = (id) => {
+                if (window.confirm("Are you sure to delete this record?")) {
+                        console.log(id);
+                        props.deleteAccount(id, () => window.alert("Account Deleted successfully"))
+                }
+        }
+
         const url = "https://localhost:5001/api/"
+
 
         // function getAccoounts() {
 
@@ -63,19 +75,18 @@ const Accounts = (props) => {
         // }
 
 
-        // const [username, setUserName] = useState(initialState)
+
         var page = "Accounts"
-        // function editClick(account) {
-        //         // console.log(account);
-        // }
-
-
 
         return (
 
                 <div>
                         {/* <NewAccount/> */}
-                        <NewAccount masterAccounts={props.list} account={props.item} />
+                        <NewAccount
+                                masterAccounts={props.masterAccounts}
+                                currentId={currentId} setCurrentId={setCurrentId}
+                        // account={props.item}
+                        />
                         <DeleteModal modelName={page} />
                         <Header navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
                         { Name: 'Accounts', url: 'accounts' }]}
@@ -92,6 +103,7 @@ const Accounts = (props) => {
                                                                         <th>CID</th>
                                                                         <th className="text-nowrap">Account Name</th>
                                                                         <th>Account Parent </th>
+                                                                        <th>Account Type </th>
                                                                         <th>OpeningAmount</th>
                                                                         <th>OpeningAmountType</th>
                                                                         {/* <th>Status</th> */}
@@ -116,8 +128,9 @@ const Accounts = (props) => {
                                                                                                 </h2>
                                                                                         </td>
                                                                                         <td>{account.Parent ? account.Parent.AccountName : ''}</td>
+                                                                                        <td>{account.Type ? 'Credit' : 'Debit'}</td>
                                                                                         <td>{account.OpeningAmount}</td>
-                                                                                        <td>{account.OpeningAmountType}</td>
+                                                                                        <td>{account.OpeningAmountType ? 'Credit' : 'Debit'}</td>
                                                                                         {/* <td>{account.Status}</td> */}
                                                                                         <td>{account.CreateDate}</td>
                                                                                         <td>{account.Description}</td>
@@ -141,9 +154,11 @@ const Accounts = (props) => {
                                                                                                                 className="material-icons">more_vert</i></a>
                                                                                                         <div className="dropdown-menu dropdown-menu-right">
                                                                                                                 <a className="dropdown-item" href="#" data-toggle="modal" data-target="#new_account"
+                                                                                                                        onClick={() => { setCurrentId(account.Id) }}
                                                                                                                 >
                                                                                                                         <i className="fa fa-pencil m-r-5"></i> Edit</a>
-                                                                                                                <a className="dropdown-item" href="#" data-toggle="modal" data-target="#delete_account"
+                                                                                                                <a className="dropdown-item" href="#" data-toggle="modal" data-target="#delete_accounts"
+                                                                                                                        onClick={() => { onDeleteClick(account.Id) }}
                                                                                                                 //     (click)='deleteClick(item)'
                                                                                                                 ><i className="fa fa-trash-o m-r-5"></i> Delete</a>
                                                                                                         </div>
@@ -167,14 +182,17 @@ const Accounts = (props) => {
         );
 
 }
-const stasteProps = state => (Accounts.propTypes={
+const stasteProps = state => (Accounts.propTypes = {
         list: state.AppReducer.list,
-        item: state.AppReducer.item,
+        masterAccounts: state.AppReducer.masterAccounts,
 })
 
-const actionProps = Accounts.propTypes={
-        getAllMasterAccounts: actions.getAllMaster
+const actionProps = Accounts.propTypes = {
+        getAllSubAccounts: actions.getAllSub,
+        getAllMasterAccounts: actions.getAllMaster,
+        deleteAccount: actions.deleteAccount
 }
+
 // Accounts.propTypes = {
 //         names: PropTypes.array.isRequired,
 //     };

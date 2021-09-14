@@ -3,7 +3,8 @@ import React, { Component } from 'react'
 import logo from '../logo.svg';
 // import axios from "axios"
 import axios from "axios";
-import Accounts from './Accounts';
+import Accounts from './SubAccounts';
+import MasterAccounts from './MasterAccounts';
 
 
 class Home extends Component {
@@ -56,7 +57,8 @@ class Home extends Component {
                 return (
                         <div className="page-wrapper">
                                 <div className="content container-fluid">
-                                        <Accounts />
+                                        {/* <Accounts /> */}
+                                        <MasterAccounts/>
                                         {/* 
                                         <h1 className="text-center bg-dark text-white">{page}</h1>
                                         <header className="App-header" >

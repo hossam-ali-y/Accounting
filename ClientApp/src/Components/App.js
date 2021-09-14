@@ -16,7 +16,7 @@ class App extends Component {
       <div className="main-wrapper">
         <Provider store={store}>
           <Navbar userName="Hossam" />
-          <SidBar />
+          {/* <SidBar /> */}
           <Home />
         </Provider>
       </div>

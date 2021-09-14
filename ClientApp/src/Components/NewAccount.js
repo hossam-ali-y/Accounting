@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
         },
 }));
 
-const initialFieldValues = {
+export const initialFieldValues = {
         Id: 0,
         Cid: '',
         ParentId: 0,
@@ -55,26 +55,47 @@ const initialFieldValues = {
 
 }
 
+// export var reset = false;
+// const [reset, setReset] = useState(false);
+
+// export const setResett = (reset) => {
+
+//         setReset(reset)
+
+// }
+export var resete;
 
 const NewAccount = (props) => {
 
         useEffect(() => {
+                // console.log(props.currentId);
                 if (props.currentId != 0) {
-                        setValues({
-                                ...props.list.find(x => x.Id == props.currentId)
-                        })
+
+                        setValues(
+                                props.isMaster == 1 ? { ...props.masterAccounts.find(x => x.Id == props.currentId) }
+                                        : { ...props.list.find(x => x.Id == props.currentId) }
+                        )
                         // console.log(props.list.find(x => x.Id == props.currentId));
                 }
+                else {
+                        resetForm()
+                }
         }, [props.currentId])
-
-        const classes = useStyles();
 
         const {
                 values,
                 setValues,
                 handelInputChange,
-                resetForm
+                resetForm,
         } = useForm(initialFieldValues, props.setCurrentId);
+
+
+        const classes = useStyles();
+
+
+        // const resetFormAndSetValues = () => {
+        //         return resetForm
+        // }
 
         const submitClick = (e) => {
                 e.preventDefault()
@@ -225,8 +246,10 @@ const NewAccount = (props) => {
                                                                                                                         control={
                                                                                                                                 <Checkbox
                                                                                                                                         // defaultChecked
+
                                                                                                                                         name="IsMaster"
-                                                                                                                                        value={values.IsMaster == 0 ? 1 : 0}
+                                                                                                                                        value={values.IsMaster == 0 ? true : false}
+                                                                                                                                        checked={values.IsMaster == 0 ? false : true}
                                                                                                                                         onChange={handelInputChange}
                                                                                                                                         color="primary"
                                                                                                                                         inputProps={{ 'aria-label': 'secondary checkbox' }}
@@ -389,6 +412,7 @@ const NewAccount = (props) => {
 }
 
 NewAccount.propTypes = {
+        isMaster: PropTypes.bool,
         masterAccounts: PropTypes.array,
         currentId: PropTypes.number,
         setCurrentId: PropTypes.func
@@ -406,4 +430,5 @@ const actionProps = NewAccount.propTypes = {
 }
 
 export default connect(stasteProps, actionProps)(NewAccount);
+
 

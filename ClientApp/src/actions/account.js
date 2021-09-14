@@ -87,6 +87,20 @@ export const getAllMaster = () => dispatch => {
                 .catch(err => console.log(err))
 
 }
+export const getAllMasterAndReload = () => dispatch => {
+        api.account().getAllMaster()
+                .then(res => {
+                        dispatch({
+                                type: ACTION_TYPES.GET_ALL_MASTER,
+                                payload: res.data
+                        })
+                        reload()
+                        // console.log(res);
+                })
+                .catch(err => console.log(err))
+
+}
+
 
 
 export const addAccount = (account, onSuccess) => dispatch => {

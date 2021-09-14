@@ -7,6 +7,7 @@ import NewAccount from './NewAccount';
 import { connect } from 'react-redux';
 import { ACTION_TYPES } from '../actions/account';
 import * as actions from "../actions/account";
+import useForm from './useForm';
 
 
 //  
@@ -22,15 +23,32 @@ import * as actions from "../actions/account";
 //         // this.editClick = this.editClick.bind(this);
 
 // }
-const Accounts = (props) => {
+// const initialFieldValues = {
+//         Id: 0,
+//         Cid: '',
+//         ParentId: 0,
+//         ParentCid: '',
+//         AccountName: '',
+//         Type: 0,
+//         IsMaster: 0,
+//         OpeningAmount: 0,
+//         OpeningAmountType: 0,
+//         Satus: 0,
+//         Description: '',
+//         CreateDate: new Date(),
+
+// }
+
+const MasterAccounts = (props) => {
 
         const [currentId, setCurrentId] = useState(0)
 
         useEffect(() => {
                 // props = props
-                props.getAllSubAccounts()
-                props.getAllMasterAccounts()
+                // props.getAllSubAccounts()
+                props.getAllMasterAndReload()
         }, [])
+
 
 
         const onDeleteClick = (id) => {
@@ -82,16 +100,17 @@ const Accounts = (props) => {
 
                 <div>
                         {/* <NewAccount/> */}
-                        <NewAccount
+                        <NewAccount 
+                                isMaster={1}
                                 masterAccounts={props.masterAccounts}
                                 currentId={currentId} setCurrentId={setCurrentId}
                         // account={props.item}
                         />
                         <DeleteModal modelName={page} />
-                        <Header navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
+                        <Header    currentId={currentId} setCurrentId={setCurrentId} navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
                         { Name: 'Accounts', url: 'accounts' }]}
                                 currentPage={{ Name: 'Sub Accounts', url: 'subacounts' }} />
-
+            
                         <div className="row">
                                 <div className="col-md-12">
                                         <div className="table-responsive">
@@ -116,7 +135,7 @@ const Accounts = (props) => {
 
                                                         <tbody id="emp-tbody">
                                                                 {
-                                                                        props.list.map((account, index) =>
+                                                                        props.masterAccounts.map((account, index) =>
 
                                                                                 <tr key={index}>
                                                                                         <td>{account.Id}</td>
@@ -154,9 +173,9 @@ const Accounts = (props) => {
                                                                                                                 className="material-icons">more_vert</i></a>
                                                                                                         <div className="dropdown-menu dropdown-menu-right">
                                                                                                                 <a className="dropdown-item" href="#" data-toggle="modal" data-target="#new_account"
-                                                                                                                        onClick={() => { setCurrentId(account.Id) }}
-                                                                                                                >
+                                                                                                                        onClick={() => { setCurrentId(account.Id) }}>
                                                                                                                         <i className="fa fa-pencil m-r-5"></i> Edit</a>
+
                                                                                                                 <a className="dropdown-item" href="#" data-toggle="modal" data-target="#delete_accounts"
                                                                                                                         onClick={() => { onDeleteClick(account.Id) }}
                                                                                                                 //     (click)='deleteClick(item)'
@@ -182,18 +201,18 @@ const Accounts = (props) => {
         );
 
 }
-const stasteProps = state => (Accounts.propTypes = {
-        list: state.AppReducer.list,
+const stasteProps = state => (MasterAccounts.propTypes = {
+        // list: state.AppReducer.list,
         masterAccounts: state.AppReducer.masterAccounts,
 })
 
-const actionProps = Accounts.propTypes = {
-        getAllSubAccounts: actions.getAllSub,
-        getAllMasterAccounts: actions.getAllMaster,
+const actionProps = MasterAccounts.propTypes = {
+        // getAllSubAccounts: actions.getAllSub,
+        getAllMasterAndReload: actions.getAllMasterAndReload,
         deleteAccount: actions.deleteAccount
 }
 
 // Accounts.propTypes = {
 //         names: PropTypes.array.isRequired,
 //     };
-export default connect(stasteProps, actionProps)(Accounts);
+export default connect(stasteProps, actionProps)(MasterAccounts);

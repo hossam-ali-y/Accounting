@@ -1,19 +1,18 @@
+// import { reload } from "./account"
 import api from "./api"
-import { ACTION_TYPES, reload } from "./shared";
+import { ACTION_TYPES,reload } from "./shared";
 
-
-export const ACCOUNT_ACTION = {
-        // GET_ALL:'GET_ALL',
-        GET_ALL_SUB: 'GET_ALL_SUB',
-        GET_ALL_MASTER: 'GET_ALL_MASTER',
+export const VOUCHER_ACTION = {
+        // GET_ALL: 'GET_ALL',
+        GET_ALL_DEBIT: 'GET_ALL_DEBIT',
+        GET_ALL_CREDIT: 'GET_ALL_CREDIT',
         // ADD: 'ADD',
         // EDIT: 'EDIT',
         // DELETE: 'DELETE',
 }
 
-
 export const getAll = () => dispatch => {
-        api.account().getAll()
+        api.vouchers().getAll()
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.GET_ALL,
@@ -25,25 +24,26 @@ export const getAll = () => dispatch => {
                 .catch(err => console.log(err))
 
 }
-export const getAllMaster = () => dispatch => {
-        api.account().getAllMaster()
+
+export const getAllAccount = () => dispatch => {
+        api.account().getAllSub()
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.GET_SUB_LIST,
                                 payload: res.data
                         })
                         // reload()
-                        // console.log(res);
+                        // console.log("reloaded");
                 })
                 .catch(err => console.log(err))
 
 }
 
-export const getAllSub = () => dispatch => {
-        api.account().getAllSub()
+export const getAllDebit = () => dispatch => {
+        api.vouchers().getAllDebit()
                 .then(res => {
                         dispatch({
-                                type: ACCOUNT_ACTION.GET_ALL_SUB,
+                                type: VOUCHER_ACTION.GET_ALL_DEBIT,
                                 payload: res.data
                         })
                         reload()
@@ -53,25 +53,39 @@ export const getAllSub = () => dispatch => {
 
 }
 
-export const getAllMasterAndReload = () => dispatch => {
-        api.account().getAllMaster()
+export const getAllCredit = () => dispatch => {
+        api.vouchers().getAllCredit()
                 .then(res => {
                         dispatch({
-                                type: ACCOUNT_ACTION.GET_ALL_MASTER,
+                                type: VOUCHER_ACTION.GET_ALL_CREDIT,
                                 payload: res.data
                         })
-                        reload()
+                        // reload()
                         // console.log(res);
                 })
                 .catch(err => console.log(err))
 
 }
+// export const getAllMasterAndReload = () => dispatch => {
+//         api.vouchers().getAllMaster()
+//                 .then(res => {
+//                         dispatch({
+//                                 type: ACTION_TYPES.GET_ALL_MASTER,
+//                                 payload: res.data
+//                         })
+//                         reload()
+//                         // console.log(res);
+//                 })
+//                 .catch(err => console.log(err))
+
+// }
 
 
 
-export const addAccount = (account, onSuccess) => dispatch => {
-        console.log(account);
-        api.account().addAccount(account)
+export const addVoucher = (voucher, onSuccess) => dispatch => {
+        console.log(voucher);
+        // voucher.Account=null
+        api.vouchers().addVoucher(voucher)
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.ADD,
@@ -92,12 +106,15 @@ export const addAccount = (account, onSuccess) => dispatch => {
 }
 
 
-export const editAccount = (id, account, onSuccess) => dispatch => {
-        api.account().editAccount(id, account)
+export const editVoucher= (id, voucher, onSuccess) => dispatch => {
+        voucher.Account=null
+        voucher.Attachments=null
+        voucher.StudentFees=null
+        api.vouchers().editVoucher(id, voucher)
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.EDIT,
-                                payload: { Id: id, ...account }
+                                payload: { Id: id, ...voucher }
                         })
                         // reload()
                         onSuccess()
@@ -108,9 +125,9 @@ export const editAccount = (id, account, onSuccess) => dispatch => {
 }
 
 
-export const deleteAccount = (id, onSuccess) => dispatch => {
+export const deleteVoucher = (id, onSuccess) => dispatch => {
         console.log(id);
-        api.account().deleteAccount(id)
+        api.vouchers().deleteVoucher(id)
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.DELETE,

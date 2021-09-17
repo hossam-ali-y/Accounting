@@ -100,17 +100,24 @@ const MasterAccounts = (props) => {
 
                 <div>
                         {/* <NewAccount/> */}
-                        <NewAccount 
+                        <NewAccount
                                 isMaster={1}
                                 masterAccounts={props.masterAccounts}
                                 currentId={currentId} setCurrentId={setCurrentId}
                         // account={props.item}
                         />
                         <DeleteModal modelName={page} />
-                        <Header    currentId={currentId} setCurrentId={setCurrentId} navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
-                        { Name: 'Accounts', url: 'accounts' }]}
-                                currentPage={{ Name: 'Sub Accounts', url: 'subacounts' }} />
-            
+                        <Header currentId={currentId} setCurrentId={setCurrentId}
+                                modal={
+                                        {
+                                                name: 'Account',
+                                                id: '#new_account'
+                                        }
+                                }
+                                navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
+                                { Name: 'Accounts', url: 'accounts' }]}
+                                currentPage={{ Name: 'Master Accounts', url: 'masteracounts' }} />
+
                         <div className="row">
                                 <div className="col-md-12">
                                         <div className="table-responsive">
@@ -202,8 +209,8 @@ const MasterAccounts = (props) => {
 
 }
 const stasteProps = state => (MasterAccounts.propTypes = {
-        // list: state.AppReducer.list,
-        masterAccounts: state.AppReducer.masterAccounts,
+        masterAccounts: state.AppReducer.list,
+        // masterAccounts: state.AppReducer.subList,
 })
 
 const actionProps = MasterAccounts.propTypes = {

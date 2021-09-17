@@ -89,7 +89,14 @@ const Accounts = (props) => {
                         // account={props.item}
                         />
                         <DeleteModal modelName={page} />
-                        <Header   currentId={currentId} setCurrentId={setCurrentId} navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
+                        <Header   currentId={currentId} setCurrentId={setCurrentId} 
+                             modal={
+                                {
+                                        name: 'Account',
+                                        id: '#new_account'
+                                }
+                        }
+                        navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
                         { Name: 'Accounts', url: 'accounts' }]}
                                 currentPage={{ Name: 'Sub Accounts', url: 'subacounts' }} />
 
@@ -185,7 +192,7 @@ const Accounts = (props) => {
 }
 const stasteProps = state => (Accounts.propTypes = {
         list: state.AppReducer.list,
-        masterAccounts: state.AppReducer.masterAccounts,
+        masterAccounts: state.AppReducer.subList,
 })
 
 const actionProps = Accounts.propTypes = {

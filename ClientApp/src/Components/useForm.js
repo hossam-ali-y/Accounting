@@ -5,7 +5,7 @@ const useForm = (initialFieldValues, setCurrentId) => {
         const [values, setValues] = useState(initialFieldValues);
 
         const handelInputChange = (e) => {
-                console.log(e.target.value);
+                console.log(e.target);
                 const { name, value } = e.target ? e.target : { name: 'CreateDate', value: e }
                 setValues({
                         ...values,
@@ -22,7 +22,6 @@ const useForm = (initialFieldValues, setCurrentId) => {
                 console.log(values);
                 // setReset()
                 // return reset;
-
         }
 
         return {

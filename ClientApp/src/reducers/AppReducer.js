@@ -1,26 +1,43 @@
-import { ACTION_TYPES } from "../actions/account"
+import { ACCOUNT_ACTION } from "../actions/account"
+import { ACTION_TYPES } from "../actions/shared"
 
 
 const initialState = {
         list: [],
-        masterAccounts: [],
+        subList: [],
+        // masterAccounts: [],
         // item: {}
 }
 
 export const AppReducer = (state = initialState, action) => {
         switch (action.type) {
-                case ACTION_TYPES.GET_ALL_SUB:
+                case ACTION_TYPES.GET_ALL:
                         return {
                                 ...state,
                                 list: [...action.payload],
                                 // item: action.payload[0]
                         }
-                case ACTION_TYPES.GET_ALL_MASTER:
+
+                case ACCOUNT_ACTION.GET_ALL_SUB:
                         return {
                                 ...state,
-                                masterAccounts: [...action.payload],
+                                list: [...action.payload],
                                 // item: action.payload[0]
                         }
+                case ACCOUNT_ACTION.GET_ALL_MASTER:
+                        return {
+                                ...state,
+                                list: [...action.payload],
+                                // item: action.payload[0]
+                        }
+
+                case ACTION_TYPES.GET_SUB_LIST:
+                        return {
+                                ...state,
+                                subList: [...action.payload],
+                                // item: action.payload[0]
+                        }
+
                 case ACTION_TYPES.ADD:
                         return {
                                 ...state,

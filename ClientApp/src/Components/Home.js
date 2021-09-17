@@ -5,6 +5,7 @@ import logo from '../logo.svg';
 import axios from "axios";
 import Accounts from './SubAccounts';
 import MasterAccounts from './MasterAccounts';
+import Vouchers from './Vouchers';
 
 
 class Home extends Component {
@@ -18,18 +19,16 @@ class Home extends Component {
 
         url = "https://localhost:5001/api/"
 
-
-
-        getAccoounts() {
-                return axios.get(this.url + "Accounts")
-                        .then(res => {
-                                // this.accounts = res.data
-                                this.setState({
-                                        accounts: res.data
-                                })
-                                // console.log(this.accounts);
-                        })
-        }
+        // getAccoounts() {
+        //         return axios.get(this.url + "Accounts")
+        //                 .then(res => {
+        //                         // this.accounts = res.data
+        //                         this.setState({
+        //                                 accounts: res.data
+        //                         })
+        //                         // console.log(this.accounts);
+        //                 })
+        // }
 
 
         render() {
@@ -58,7 +57,8 @@ class Home extends Component {
                         <div className="page-wrapper">
                                 <div className="content container-fluid">
                                         {/* <Accounts /> */}
-                                        <MasterAccounts/>
+                                        {/* <MasterAccounts/> */}
+                                        <Vouchers/>
                                         {/* 
                                         <h1 className="text-center bg-dark text-white">{page}</h1>
                                         <header className="App-header" >

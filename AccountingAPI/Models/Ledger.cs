@@ -8,12 +8,12 @@ namespace AccountingAPI.Data
 {
         public partial class Ledger:ISaveConfig
         {
-                public Ledger()
-                {
-                        // CreateDate = ((DateTime)CreateDate);
-                        // Attachments = new HashSet<Attachment>();
-                        // StudentFees = new HashSet<StudentFee>();
-                }
+                // public Ledger()
+                // {
+                //         // CreateDate = ((DateTime)CreateDate);
+                //         // Attachments = new HashSet<Attachment>();
+                //         // StudentFees = new HashSet<StudentFee>();
+                // }
 
                 public int Id { get; set; }
                 public int AccountId { get; set; }

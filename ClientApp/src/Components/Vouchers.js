@@ -86,6 +86,7 @@ const Vouchers = (props) => {
                                                                         {/* <th>OpeningAmountType</th> */}
                                                                         {/* <th>Status</th> */}
                                                                         <th className="text-nowrap">Create Date</th>
+                                                                        <th className="text-nowrap">Modified Date</th>
                                                                         <th>Description</th>
                                                                         {/* <th>Status</th> */}
                                                                         <th className="text-right no-sort">Action</th>
@@ -115,6 +116,7 @@ const Vouchers = (props) => {
                                                                                         <td>{account.OpeningAmountType ? 'Credit' : 'Debit'}</td> */}
                                                                                         {/* <td>{account.Status}</td> */}
                                                                                         <td>{account.CreateDate}</td>
+                                                                                        <td>{account.ModifiedDate}</td>
                                                                                         <td>{account.Description}</td>
 
                                                                                         {/* <td>

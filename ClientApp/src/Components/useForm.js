@@ -6,7 +6,7 @@ const useForm = (initialFieldValues, setCurrentId) => {
 
         const handelInputChange = (e) => {
                 console.log(e.target);
-                const { name, value } = e.target ? e.target : { name: 'CreateDate', value: e }
+                const { name, value } = e.target ? e.target : { name: 'CreateDate', value: e.toLocaleDateString() }
                 setValues({
                         ...values,
                         [name]: value

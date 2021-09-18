@@ -6,7 +6,7 @@ namespace AccountingAPI.Data
         {
 
                 public DateTime? CreateDate { get; set; }
-                public static DateTime? ModifiedDate { get; set; }
+                public  DateTime? ModifiedDate { get; set; }
 
         }
 }

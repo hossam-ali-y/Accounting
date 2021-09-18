@@ -97,7 +97,7 @@ export const editAccount = (id, account, onSuccess) => dispatch => {
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.EDIT,
-                                payload: { Id: id, ...account }
+                                payload: res.data
                         })
                         // reload()
                         onSuccess()

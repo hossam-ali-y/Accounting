@@ -38,7 +38,7 @@ export const initialFieldValues = {
         AccountId: 0,
         Cid: '',
         // AccountName: '',
-        Amount:0,
+        Amount: 0,
         Type: 0,
         // IsMaster: false,
         // OpeningAmount: 0,
@@ -46,6 +46,7 @@ export const initialFieldValues = {
         // Satus: 0,
         Description: '',
         CreateDate: new Date(),
+        ModifiedDate: null,
 
 }
 
@@ -129,7 +130,7 @@ const NewVouchers = (props) => {
                                                                         > NEW
                                                                         </button>
 
-                                                                        <div className={`float-right ml-auto ${!(props.currentId > 0)?'d-none':null}`}>
+                                                                        <div className={`float-right ml-auto ${!(props.currentId > 0) ? 'd-none' : null}`}>
                                                                                 <a href="#" target="_blank" className="btn btn-white">
                                                                                         <i className="fa fa-print fa-lg"></i> Print
                                                                                 </a>
@@ -187,7 +188,7 @@ const NewVouchers = (props) => {
 
                                                                                                                 </FormControl>
                                                                                                         </div>
-                                                                         
+
                                                                                                 </div >
 
 
@@ -217,13 +218,13 @@ const NewVouchers = (props) => {
                                                                                                         </div >
 
                                                                                                         <div className="col-md-12">
-                                                           
+
                                                                                                                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                                                                                                                         <Grid container justifyContent="space-around">
                                                                                                                                 <KeyboardDatePicker
                                                                                                                                         disableToolbar
                                                                                                                                         variant="inline"
-                                                                                                                                        format="MM/dd/yyyy"
+                                                                                                                                        format="dd/MM/yyyy"
                                                                                                                                         margin="normal"
                                                                                                                                         id="date-picker-inline"
                                                                                                                                         label="Date picker inline"
@@ -235,17 +236,19 @@ const NewVouchers = (props) => {
                                                                                                                                 />
 
                                                                                                                                 <KeyboardDatePicker
+                                                                                                                                        className={!(props.currentId > 0) ? 'd-none' : null}
+                                                                                                                                        disabled={true}
                                                                                                                                         margin="normal"
                                                                                                                                         id="date-picker-dialog"
                                                                                                                                         label="Date picker dialog"
-                                                                                                                                        format="MM/dd/yyyy"
-                                                                                                                                        value={values.CreateDate}
+                                                                                                                                        format="dd/MM/yyyy"
+                                                                                                                                        value={values.ModifiedDate}
                                                                                                                                         onChange={handelInputChange}
                                                                                                                                         KeyboardButtonProps={{
                                                                                                                                                 'aria-label': 'change date',
                                                                                                                                         }}
                                                                                                                                 />
-                                                                                                                           
+
                                                                                                                         </Grid>
                                                                                                                 </MuiPickersUtilsProvider>
                                                                                                                 {/* </div> */}

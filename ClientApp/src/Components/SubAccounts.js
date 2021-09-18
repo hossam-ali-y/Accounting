@@ -112,10 +112,11 @@ const Accounts = (props) => {
                                                                         <th className="text-nowrap">Account Name</th>
                                                                         <th>Account Parent </th>
                                                                         <th>Account Type </th>
-                                                                        <th>OpeningAmount</th>
-                                                                        <th>OpeningAmountType</th>
+                                                                        <th>Opening Amount</th>
+                                                                        <th>Opening Amount Type</th>
                                                                         {/* <th>Status</th> */}
                                                                         <th className="text-nowrap">Create Date</th>
+                                                                        <th className="text-nowrap">Modified Date</th>
                                                                         <th>Description</th>
                                                                         <th>Status</th>
                                                                         <th className="text-right no-sort">Action</th>
@@ -141,6 +142,7 @@ const Accounts = (props) => {
                                                                                         <td>{account.OpeningAmountType ? 'Credit' : 'Debit'}</td>
                                                                                         {/* <td>{account.Status}</td> */}
                                                                                         <td>{account.CreateDate}</td>
+                                                                                        <td>{account.ModifiedDate}</td>
                                                                                         <td>{account.Description}</td>
 
                                                                                         <td>

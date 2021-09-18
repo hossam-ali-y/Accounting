@@ -108,17 +108,18 @@ export const addVoucher = (voucher, onSuccess) => dispatch => {
 
 export const editVoucher= (id, voucher, onSuccess) => dispatch => {
         voucher.Account=null
-        voucher.Attachments=null
-        voucher.StudentFees=null
+        // voucher.Attachments=null
+        // voucher.StudentFees=null
         api.vouchers().editVoucher(id, voucher)
                 .then(res => {
                         dispatch({
                                 type: ACTION_TYPES.EDIT,
-                                payload: { Id: id, ...voucher }
+                                payload: res.data
                         })
+                        console.log(res);
                         // reload()
-                        onSuccess()
-                        // console.log(res);
+                        onSuccess
+                
                 })
                 .catch(err => console.log(err))
 

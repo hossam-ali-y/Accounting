@@ -22,14 +22,19 @@ import * as actions from "../actions/account";
 //         // this.editClick = this.editClick.bind(this);
 
 // }
+
 const Accounts = (props) => {
 
         const [currentId, setCurrentId] = useState(0)
 
         useEffect(() => {
                 // props = props
-                props.getAllSubAccounts()
-                props.getAllMasterAccounts()
+                if (props.page == 0)
+                        props.getMasterList()
+                else if (props.page == 1)
+                        props.getSubList()
+
+                props.getSub()
         }, [])
 
 
@@ -89,21 +94,21 @@ const Accounts = (props) => {
                         // account={props.item}
                         />
                         <DeleteModal modelName={page} />
-                        <Header   currentId={currentId} setCurrentId={setCurrentId} 
-                             modal={
-                                {
-                                        name: 'Account',
-                                        id: '#new_account'
+                        <Header currentId={currentId} setCurrentId={setCurrentId}
+                                modal={
+                                        {
+                                                name: 'Account',
+                                                id: '#new_account'
+                                        }
                                 }
-                        }
-                        navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
-                        { Name: 'Accounts', url: 'accounts' }]}
-                                currentPage={{ Name: 'Sub Accounts', url: 'subacounts' }} />
+                                navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
+                                { Name: 'Accounts', url: 'accounts' }]}
+                                pages={props.pages} page={props.page} />
 
                         <div className="row">
                                 <div className="col-md-12">
                                         <div className="table-responsive">
-                                        <table className="table table-striped custom-table datatable">
+                                                <table className="table table-striped custom-table datatable">
 
                                                         <thead>
                                                                 <tr>
@@ -195,11 +200,19 @@ const Accounts = (props) => {
 const stasteProps = state => (Accounts.propTypes = {
         list: state.AppReducer.list,
         masterAccounts: state.AppReducer.subList,
+        pages: [
+                // { id: 0, name: 'Master Accounts', url: 'master' },
+                { id: 1, name: 'Sub Accounts', url: 'sub' }
+        ],
+        page: 1
 })
 
 const actionProps = Accounts.propTypes = {
-        getAllSubAccounts: actions.getAllSub,
-        getAllMasterAccounts: actions.getAllMaster,
+        getMasterList: actions.getAllMasterAndReload,
+        // getList: actions.getAllSub,
+        getSubList: actions.getAllSub,
+        getSub: actions.getAllMaster,
+
         deleteAccount: actions.deleteAccount
 }
 

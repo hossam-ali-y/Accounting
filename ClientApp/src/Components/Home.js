@@ -3,11 +3,10 @@ import React, { Component } from 'react'
 import logo from '../logo.svg';
 // import axios from "axios"
 import axios from "axios";
-import Accounts from './SubAccounts';
+import Accounts from './Accounts';
 import MasterAccounts from './MasterAccounts';
 import Vouchers from './Vouchers';
-
-
+// import { BrowserRouter as Router, Switch, Route,Link } from "react-router-dom";
 class Home extends Component {
         constructor(props) {
                 super(props);
@@ -19,67 +18,24 @@ class Home extends Component {
 
         url = "https://localhost:5001/api/"
 
-        // getAccoounts() {
-        //         return axios.get(this.url + "Accounts")
-        //                 .then(res => {
-        //                         // this.accounts = res.data
-        //                         this.setState({
-        //                                 accounts: res.data
-        //                         })
-        //                         // console.log(this.accounts);
-        //                 })
-        // }
-
-
         render() {
                 var page = "Accounts"
-
                 const logoAlt = "Logo";
-
-                // function ToList(props) {
-                //         const accounts = props.accounts;
-                //         const listItems = accounts.map((item) =>
-                //                 <li>{item.AccountName}</li>
-                //         );
-                //         // const listItems=
-                //         // accounts.forEach(account => {
-
-                //         //        <li>{account.AccountName}</li>
-                //         // });
-                //         console.log(listItems);
-                //         return (
-                //                 <ul>{listItems}</ul>
-                //         );
-                // }
-
-
                 return (
-                        <div className="page-wrapper">
-                                <div className="content container-fluid">
-                                        {/* <Accounts /> */}
-                                        {/* <MasterAccounts/> */}
-                                        <Vouchers/>
-                                        {/* 
-                                        <h1 className="text-center bg-dark text-white">{page}</h1>
-                                        <header className="App-header" >
-                                        <ToList accounts={this.state.accounts} /> 
-                    
-                                                <img src={logo} className="App-logo" alt="" title={`${logoAlt} alt`} />
-                                                <p>
-                                                        Edit <code>src/App.js</code> and save to reload.
-                                                </p>
-                                                <a
-                                                        className="App-link"
-                                                        href="https://reactjs.org"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                >
-                                                        Learn React
-                                                </a>
-                                        </header>
-                              */}
+                        // <Router>
+                                <div className="page-wrapper">
+                                        <div className="content container-fluid">
+                                                {/* <Accounts /> */}
+                                                  <MasterAccounts/>
+                                                {/* <Vouchers /> */}
+                                                {/* <Switch>
+                                                <Route path="/subaccounts" component={Accounts} />
+                                                <Route path="/masteraccount" component={MasterAccounts} />
+                                                <Route path="/vouchers" component={Vouchers} />
+                                                </Switch> */}
+                                        </div>
                                 </div>
-                        </div>
+                        // </Router>
                 );
         }
 }

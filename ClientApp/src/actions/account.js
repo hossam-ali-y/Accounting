@@ -39,29 +39,35 @@ export const getAllMaster = () => dispatch => {
 
 }
 
-export const getAllSub = () => dispatch => {
-        api.account().getAllSub()
-                .then(res => {
-                        dispatch({
-                                type: ACCOUNT_ACTION.GET_ALL_SUB,
-                                payload: res.data
-                        })
-                        reload()
-                        // console.log("reloaded");
-                })
-                .catch(err => console.log(err))
-
-}
-
 export const getAllMasterAndReload = () => dispatch => {
+        // reload()
         api.account().getAllMaster()
                 .then(res => {
                         dispatch({
                                 type: ACCOUNT_ACTION.GET_ALL_MASTER,
                                 payload: res.data
                         })
-                        reload()
+                        // reload()
                         // console.log(res);
+                }).then(res=>{
+                        reload()
+                })
+                .catch(err => console.log(err))
+
+}
+
+export const getAllSub = () => dispatch => {
+        // reload()
+        api.account().getAllSub()
+                .then(res => {
+                        dispatch({
+                                type: ACCOUNT_ACTION.GET_ALL_SUB,
+                                payload: res.data
+                        })
+                        // reload()
+                        // console.log("reloaded");
+                }).then(res=>{
+                        reload()
                 })
                 .catch(err => console.log(err))
 

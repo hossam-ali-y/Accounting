@@ -45,8 +45,12 @@ const MasterAccounts = (props) => {
 
         useEffect(() => {
                 // props = props
-                // props.getAllSubAccounts()
-                props.getAllMasterAndReload()
+                if (props.page == 0)
+                        props.getMasterList()
+                else if (props.page == 1)
+                        props.getSubList()
+
+                props.getSub()
         }, [])
 
 
@@ -116,7 +120,7 @@ const MasterAccounts = (props) => {
                                 }
                                 navItems={[{ Name: 'Home', url: 'home' }, { Name: 'Financial', url: 'financial' },
                                 { Name: 'Accounts', url: 'accounts' }]}
-                                currentPage={{ Name: 'Master Accounts', url: 'masteracounts' }} />
+                                pages={props.pages} page={props.page} />
 
                         <div className="row">
                                 <div className="col-md-12">
@@ -143,7 +147,7 @@ const MasterAccounts = (props) => {
 
                                                         <tbody id="emp-tbody">
                                                                 {
-                                                                        props.masterAccounts.map((account, index) =>
+                                                                        props.list.map((account, index) =>
 
                                                                                 <tr key={index}>
                                                                                         <td>{account.Id}</td>
@@ -211,13 +215,21 @@ const MasterAccounts = (props) => {
 
 }
 const stasteProps = state => (MasterAccounts.propTypes = {
-        masterAccounts: state.AppReducer.list,
-        // masterAccounts: state.AppReducer.subList,
+        list: state.AppReducer.list,
+        masterAccounts: state.AppReducer.subList,
+        pages: [
+                { id: 0, name: 'Master Accounts', url: 'master' },
+                { id: 1, name: 'Sub Accounts', url: 'sub' }
+        ],
+        page: 0
 })
 
 const actionProps = MasterAccounts.propTypes = {
-        // getAllSubAccounts: actions.getAllSub,
-        getAllMasterAndReload: actions.getAllMasterAndReload,
+        getMasterList: actions.getAllMasterAndReload,
+        // getList: actions.getAllSub,
+        getSubList: actions.getAllSub,
+        getSub: actions.getAllMaster,
+
         deleteAccount: actions.deleteAccount
 }
 

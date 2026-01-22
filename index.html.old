@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
+  <!-- <link rel="stylesheet" href="../src/assets/css/bootstrap.min.css"> -->
+  <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="./assets/css/bootstrap.min.css">
+  `
+  <!-- Fontawesome CSS -->
+  <link rel="stylesheet" href="./assets/css/font-awesome.min.css">
+
+  <!-- Lineawesome CSS -->
+  <link rel="stylesheet" href="./assets/css/line-awesome.min.css">
+
+  <!-- Chart CSS -->
+  <link rel="stylesheet" href="./assets/plugins/morris/morris.css">
+
+  <!-- Datatable CSS -->
+  <link rel="stylesheet" href="./assets/css/dataTables.bootstrap4.min.css">
+
+  <!-- Select2 CSS -->
+  <link rel="stylesheet" href="./assets/css/select2.min.css">
+
+  <!-- Datetimepicker CSS -->
+  <link rel="stylesheet" href="./assets/css/bootstrap-datetimepicker.min.css">
+
+  <!-- Tagsinput CSS -->
+  <link rel="stylesheet" href="./assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+
+  <!-- Summernote CSS -->
+  <link rel="stylesheet" href="assets/plugins/summernote/dist/summernote-bs4.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <title>Accounting System (ReactJs)</title>
+</head>
+
+<body class="mini-sidebar">
+  <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
+  <div id="root"></div>
+  <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+
+  <!-- jQuery -->
+  <script src="./assets/js/jquery-3.2.1.min.js"></script>
+
+  <!-- Bootstrap Core JS -->
+  <script src="./assets/js/popper.min.js"></script>
+  <script src="./assets/js/bootstrap.min.js"></script>
+
+  <!-- Slimscroll JS -->
+  <script src="./assets/js/jquery.slimscroll.min.js"></script>
+
+  <!-- Chart JS -->
+  <script src="./assets/plugins/morris/morris.min.js"></script>
+  <script src="./assets/plugins/raphael/raphael.min.js"></script>
+  <!-- <script src="./assets/js/chart.js"></script> -->
+
+  <!-- Datatable JS -->
+  <script src="./assets/js/jquery.dataTables.min.js"></script>
+  <!-- <script src="./assets/js/dataTables.fixedHeader.min.js"></script> -->
+  <script src="./assets/js/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Select2 JS -->
+  <script src="./assets/js/select2.min.js"></script>
+
+  <!-- Datetimepicker JS -->
+  <script src="./assets/js/moment.min.js"></script>
+  <!-- <script src='assets/js/datetimepicker.js'></script> -->
+  <script src="./assets/js/bootstrap-datetimepicker.min.js"></script>
+
+  <!-- Tagsinput JS -->
+  <script src="./assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js"></script>
+
+  <script src="./assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+
+  <!-- Mask JS -->
+  <script src="./assets/js/jquery.maskedinput.min.js"></script>
+  <!-- <script src="assets/js/mask.js"></script> -->
+
+  <!-- Summernote JS -->
+  <script src="./assets/plugins/summernote/dist/summernote-bs4.min.js"></script>
+
+  <!-- Tafqeet JS -->
+  <!-- <script src="./assets/js/Tafqeet.js"></script> -->
+
+  <!-- Task JS -->
+  <script src="./assets/js/task.js"></script>
+
+  <!-- Custom JS -->
+  <script src="./assets/js/app.js"></script>
+
+  <!-- Sticky JS -->
+  <script>
+
+    // This is for the sticky sidebar
+    $(".stickyside").stick_in_parent({
+      offset_top: 60
+    });
+    $('.stickyside a').click(function () {
+      $('html, body').animate({
+        scrollTop: $($(this).attr('href')).offset().top - 60
+      }, 500);
+      return false;
+    });
+    // This is auto select left sidebar
+    // Cache selectors
+    // Cache selectors
+    var lastId,
+      topMenu = $(".stickyside"),
+      topMenuHeight = topMenu.outerHeight(),
+      // All list items
+      menuItems = topMenu.find("a"),
+      // Anchors corresponding to menu items
+      scrollItems = menuItems.map(function () {
+        var item = $($(this).attr("href"));
+        if (item.length) {
+          return item;
+        }
+      });
+
+    // Bind click handler to menu items
+
+
+    // Bind to scroll
+    $(window).scroll(function () {
+      // Get container scroll position
+      var fromTop = $(this).scrollTop() + topMenuHeight - 250;
+
+      // Get id of current scroll item
+      var cur = scrollItems.map(function () {
+        if ($(this).offset().top < fromTop)
+          return this;
+      });
+      // Get the id of the current element
+      cur = cur[cur.length - 1];
+      var id = cur && cur.length ? cur[0].id : "";
+
+      if (lastId !== id) {
+        lastId = id;
+        // Set/remove active class
+        menuItems
+          .removeClass("active")
+          .filter("[href='#" + id + "']").addClass("active");
+      }
+    });
+
+ 
+
+    (function ($) {
+  
+
+      window.addRule = function (selector, styles, sheet) {
+
+        styles = (function (styles) {
+          if (typeof styles === "string") return styles;
+          var clone = "";
+          for (var p in styles) {
+            if (styles.hasOwnProperty(p)) {
+              var val = styles[p];
+              p = p.replace(/([A-Z])/g, "-$1").toLowerCase(); // convert to dash-case
+              clone += p + ":" + (p === "content" ? '"' + val + '"' : val) + "; ";
+            }
+          }
+          return clone;
+        }(styles));
+        sheet = sheet || document.styleSheets[document.styleSheets.length - 1];
+
+        if (sheet.insertRule) sheet.insertRule(selector + " {" + styles + "}", sheet.cssRules.length);
+        else if (sheet.addRule) sheet.addRule(selector, styles);
+
+        return this;
+
+      };
+
+      if ($) $.fn.addRule = function (styles, sheet) {
+        addRule(this.selector, styles, sheet);
+        return this;
+      };
+
+    }(window.jQuery));
+
+    {
+
+
+
+    }
+  </script>
+</body>
+
+</html>

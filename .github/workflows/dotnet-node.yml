@@ -1,4 +1,4 @@
-name: .NET 5 + Node CI
+name: .NET 5 + Vite React CI + Deploy (GitHub Pages)
 
 on:
   push:
@@ -6,43 +6,53 @@ on:
   pull_request:
     branches: [ main, master ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      NPM_CONFIG_LEGACY_PEER_DEPS: 'true'
+      NPM_CONFIG_LEGACY_PEER_DEPS: "true"
+
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [20.x]
         dotnet-version: [5.0.x]
 
     steps:
       - uses: actions/checkout@v4
 
+      # ------------------------
+      # React (Vite)
+      # ------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: "npm"
           cache-dependency-path: |
             ClientApp/package-lock.json
-            ClientApp/yarn.lock
-            ClientApp/npm-shrinkwrap.json
 
       - name: Install client dependencies
         working-directory: ClientApp
-        run: |
-          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
-            npm ci --legacy-peer-deps --no-audit --prefer-offline
-          else
-            npm install --legacy-peer-deps --no-audit --prefer-offline
-          fi
-        shell: bash
+        run: npm ci --legacy-peer-deps --no-audit --prefer-offline
 
       - name: Build client app
         working-directory: ClientApp
-        run: npm run build --if-present
+        run: npm run build
 
+      # ✅ Deploy to GitHub Pages (only on push to main/master)
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ClientApp/dist
+
+      # ------------------------
+      # Optional: copy dist to API wwwroot then build .NET
+      # ------------------------
       - name: Copy client build to API wwwroot
         run: |
           echo "Preparing wwwroot"

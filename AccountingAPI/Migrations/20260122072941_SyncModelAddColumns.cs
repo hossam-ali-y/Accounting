@@ -7,9 +7,7 @@ namespace AccountingAPI.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Ledgers_Accounts_AccountId",
-                table: "Ledgers");
+            
 
             migrationBuilder.RenameColumn(
                 name: "YearId",

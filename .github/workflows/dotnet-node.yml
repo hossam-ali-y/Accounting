@@ -40,14 +40,28 @@ jobs:
             ClientApp/yarn.lock
             ClientApp/npm-shrinkwrap.json
 
-      - name: Install client dependencies
+      - name: Debug: node/npm info
+        run: |
+          node --version
+          npm --version
+          npm config ls
+          ls -la ClientApp
+        shell: bash
+
+      - name: Install client dependencies (verbose)
         working-directory: ClientApp
         run: |
+          set -x
+          echo "Running verbose install"
           if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
-            npm ci --force
+            npm ci --legacy-peer-deps --loglevel verbose 2>&1 | tee /home/runner/work/_temp/npm-install-verbose.log
           else
-            npm install --force
+            npm install --legacy-peer-deps --loglevel verbose 2>&1 | tee /home/runner/work/_temp/npm-install-verbose.log
           fi
+          echo "--- npm install log start ---"
+          sed -n '1,400p' /home/runner/work/_temp/npm-install-verbose.log || true
+          echo "--- npm install log end ---"
+        shell: bash
 
       - name: Build client app
         working-directory: ClientApp

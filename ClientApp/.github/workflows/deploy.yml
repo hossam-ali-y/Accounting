@@ -18,7 +18,7 @@ jobs:
 
       - name: Install and Build
         run: |
-          npm ci --legacy-peer-deps
+          npm ci --force
           npm run build
 
       - name: Deploy

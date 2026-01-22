@@ -93,16 +93,16 @@ Header.propTypes = {
         // resetForm: PropTypes.func,
 }
 
-const stasteProps = state => (Header.propTypes = {
+const mapStateToProps = state => ({
         // list: state.AppReducer.list,
         // masterAccounts: state.AppReducer.subList,
 })
 
-const actionProps = Header.propTypes = {
+const mapDispatchToProps = {
         getAllMasterAndReload: actions.getAllMasterAndReload,
         getAllSubAccounts: actions.getAllSub,
         // getAllMasterAccounts: actions.getAllMaster,
         // deleteAccount: actions.deleteAccount
 }
 
-export default connect(stasteProps, actionProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

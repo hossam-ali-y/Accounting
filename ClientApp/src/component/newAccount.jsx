@@ -46,10 +46,10 @@ export const initialFieldValues = {
         ParentId: 0,
         ParentCid: '',
         AccountName: '',
-        Type: 0,
+        Type: false,
         IsMaster: false,
         OpeningAmount: 0,
-        OpeningAmountType: 0,
+        OpeningAmountType: false,
         Satus: 0,
         Description: '',
         CreateDate: new Date(),
@@ -111,6 +111,15 @@ const NewAccount = (props) => {
                         props.addAccount(values, onSuccess("Added"))
                 else
                         props.editAccount(props.currentId, values, onSuccess("Updated"))
+        }
+
+        const handleDateChange = (name, date) => {
+            handelInputChange({
+                target: {
+                    name: name,
+                    value: date
+                }
+            })
         }
 
         // const [values, setValues] = useState(initialFieldValues);
@@ -231,8 +240,9 @@ const NewAccount = (props) => {
                                                                                                                                 // aria-controls={false}
                                                                                                                                 value={values.ParentId}
                                                                                                                                 onChange={handelInputChange}>
+                                                                                                                                <MenuItem value={0}>None</MenuItem>
                                                                                                                                 {
-                                                                                                                                        props.masterAccounts.map((account, index) =>
+                                                                                                                                        props.masterAccounts && props.masterAccounts.map((account, index) =>
                                                                                                                                                 <MenuItem value={account.Id} key={index}>{account.AccountName}</MenuItem>
                                                                                                                                         )
                                                                                                                                 }
@@ -324,7 +334,7 @@ const NewAccount = (props) => {
 
 
                                                                                                                 {/* </div > */}
-                                                                                                        </div >
+                                                                                                        </div>
 
                                                                                                         <div className="col-md-12" style={{ marginTop: '25px' }}>
                                                                                                                 {/* <label className="" >STATEMENT</label> */}
@@ -335,7 +345,7 @@ const NewAccount = (props) => {
                                                                                                                 </textarea>
 
                                                                                                                 {/* </div> */}
-                                                                                                        </div >
+                                                                                                        </div>
 
                                                                                                         <div className="col-md-12">
                                                                                                                 {/* <div className="form-group"> */}
@@ -358,7 +368,7 @@ const NewAccount = (props) => {
                                                                                                                                         id="date-picker-inline"
                                                                                                                                         label="Created Date"
                                                                                                                                         value={values.CreateDate}
-                                                                                                                                        onChange={handelInputChange}
+                                                                                                                                        onChange={(date) => handleDateChange('CreateDate', date)}
                                                                                                                                         KeyboardButtonProps={{
                                                                                                                                                 'aria-label': 'change date',
                                                                                                                                         }}
@@ -372,7 +382,7 @@ const NewAccount = (props) => {
                                                                                                                                         label="Modified Date"
                                                                                                                                         format="dd/MM/yyyy"
                                                                                                                                         value={values.ModifiedDate}
-                                                                                                                                        onChange={handelInputChange}
+                                                                                                                                        onChange={(date) => handleDateChange('ModifiedDate', date)}
                                                                                                                                         KeyboardButtonProps={{
                                                                                                                                                 'aria-label': 'change date',
                                                                                                                                         }}
@@ -416,23 +426,23 @@ const NewAccount = (props) => {
 }
 
 NewAccount.propTypes = {
-        isMaster: PropTypes.bool,
+        isMaster: PropTypes.number,
         masterAccounts: PropTypes.array,
         currentId: PropTypes.number,
         setCurrentId: PropTypes.func
 }
 
-const stasteProps = state => (NewAccount.propTypes = {
+const mapStateToProps = state => ({
         list: state.AppReducer.list
         // item: state.AppReducer.item,
 })
 
-const actionProps = NewAccount.propTypes = {
+const mapDispatchToProps = {
         addAccount: actions.addAccount,
         editAccount: actions.editAccount,
         reload: reload,
 }
 
-export default connect(stasteProps, actionProps)(NewAccount);
+export default connect(mapStateToProps, mapDispatchToProps)(NewAccount);
 
 

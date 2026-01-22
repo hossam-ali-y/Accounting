@@ -1,43 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import axios from "axios";
-import Header from './Header';
-import DeleteModal from './DeleteModal';
-import NewAccount from './NewAccount';
+import Header from './header';
+import DeleteModal from './deleteModal';
 import { connect } from 'react-redux';
-import { ACTION_TYPES } from '../actions/account';
 import * as actions from "../actions/account";
 import useForm from './useForm';
-
-
-//  
-// class Accounts extends Component {
-
-// constructor(props) {
-//         super(props);
-//         this.state = {
-//                 account: {},
-//                 accounts: []
-//         }
-//         this.getAccoounts();
-//         // this.editClick = this.editClick.bind(this);
-
-// }
-// const initialFieldValues = {
-//         Id: 0,
-//         Cid: '',
-//         ParentId: 0,
-//         ParentCid: '',
-//         AccountName: '',
-//         Type: 0,
-//         IsMaster: 0,
-//         OpeningAmount: 0,
-//         OpeningAmountType: 0,
-//         Satus: 0,
-//         Description: '',
-//         CreateDate: new Date(),
-
-// }
+import NewAccount from './newAccount';
 
 const MasterAccounts = (props) => {
 
@@ -63,41 +32,6 @@ const MasterAccounts = (props) => {
         }
 
         const url = "https://localhost:5001/api/"
-
-
-        // function getAccoounts() {
-
-        //         return axios.get(this.url + "Accounts/NotMasterAccounts")
-        //                 .then(res => {
-        //                         // this.accounts = res.data
-        //                         this.setState({
-        //                                 accounts: res.data
-        //                         })
-        //                         this.reload()
-        //                         // console.log(this.accounts);
-        //                 })
-        // }
-
-
-        // function editClick(account) {
-        //         console.log("hjjj");
-        //         console.log(account);
-        // }
-
-        // function TableBody(props) {
-
-        //         const accounts = this.props.accounts;
-        //         console.log(accounts);
-
-
-        //         // console.log(listItems);
-        //         return (
-        //                 accounts
-        //         );
-        // }
-
-
-
         var page = "Accounts"
 
         return (
@@ -214,7 +148,8 @@ const MasterAccounts = (props) => {
         );
 
 }
-const stasteProps = state => (MasterAccounts.propTypes = {
+
+const mapStateToProps = state => ({
         list: state.AppReducer.list,
         masterAccounts: state.AppReducer.subList,
         pages: [
@@ -224,16 +159,11 @@ const stasteProps = state => (MasterAccounts.propTypes = {
         page: 0
 })
 
-const actionProps = MasterAccounts.propTypes = {
+const mapDispatchToProps = {
         getMasterList: actions.getAllMasterAndReload,
-        // getList: actions.getAllSub,
         getSubList: actions.getAllSub,
         getSub: actions.getAllMaster,
-
         deleteAccount: actions.deleteAccount
 }
 
-// Accounts.propTypes = {
-//         names: PropTypes.array.isRequired,
-//     };
-export default connect(stasteProps, actionProps)(MasterAccounts);
+export default connect(mapStateToProps, mapDispatchToProps)(MasterAccounts);

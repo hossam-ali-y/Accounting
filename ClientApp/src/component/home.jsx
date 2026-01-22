@@ -4,9 +4,10 @@ import logo from '../logo.svg';
 // import axios from "axios"
 import axios from "axios";
 import Accounts from './Accounts';
-import MasterAccounts from './MasterAccounts';
-import Vouchers from './Vouchers';
+import MasterAccounts from './masterAccounts';
+import Vouchers from './vouchers';
 // import { BrowserRouter as Router, Switch, Route,Link } from "react-router-dom";
+
 class Home extends Component {
         constructor(props) {
                 super(props);

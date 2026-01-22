@@ -1,11 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import axios from "axios";
-import Header from './Header';
-import DeleteModal from './DeleteModal';
-import NewAccount from './NewAccount';
+import Header from './header';
+import DeleteModal from './deleteModal';
+import NewAccount from './newAccount';
 import { connect } from 'react-redux';
-import { ACTION_TYPES } from '../actions/account';
 import * as actions from "../actions/account";
 
 
@@ -197,7 +196,7 @@ const Accounts = (props) => {
         );
 
 }
-const stasteProps = state => (Accounts.propTypes = {
+const mapStateToProps = state => ({
         list: state.AppReducer.list,
         masterAccounts: state.AppReducer.subList,
         pages: [
@@ -207,7 +206,7 @@ const stasteProps = state => (Accounts.propTypes = {
         page: 1
 })
 
-const actionProps = Accounts.propTypes = {
+const mapDispatchToProps = {
         getMasterList: actions.getAllMasterAndReload,
         // getList: actions.getAllSub,
         getSubList: actions.getAllSub,
@@ -219,4 +218,4 @@ const actionProps = Accounts.propTypes = {
 // Accounts.propTypes = {
 //         names: PropTypes.array.isRequired,
 //     };
-export default connect(stasteProps, actionProps)(Accounts);
+export default connect(mapStateToProps, mapDispatchToProps)(Accounts);

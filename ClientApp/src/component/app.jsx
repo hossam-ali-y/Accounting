@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { GlobalProvider } from '../context/GlobalState';
-import Home from './Home';
+import Home from './home';
 
 // import ReactDOM from 'react-dom';
-import Navbar from './Navbar';
-import SidBar from './SidBar';
+import Navbar from './navbar';
+import SidBar from './sidBar';
 import { Provider } from "react-redux";
 import { store } from "../actions/store";
+
 
 class App extends Component {
 

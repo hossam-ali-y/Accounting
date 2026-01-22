@@ -4,14 +4,16 @@ using AccountingAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AccountingAPI.Migrations
 {
     [DbContext(typeof(AccountingDBContext))]
-    partial class AccountingDBContextModelSnapshot : ModelSnapshot
+    [Migration("20260122072941_SyncModelAddColumns")]
+    partial class SyncModelAddColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -57,7 +59,7 @@ namespace AccountingAPI.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Parent_CId");
 
-                    b.Property<int?>("ParentId")
+                    b.Property<int>("ParentId")
                         .HasColumnType("int")
                         .HasColumnName("Parent_Id");
 
@@ -131,7 +133,9 @@ namespace AccountingAPI.Migrations
                 {
                     b.HasOne("AccountingAPI.Data.Account", "Parent")
                         .WithMany()
-                        .HasForeignKey("ParentId");
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Parent");
                 });

@@ -239,27 +239,27 @@ class SidBar extends Component {
                                                                         <a href="#"><i className="la la-file-text"></i> <span>Documentation</span></a>
                                                                 </li>
                                                                 <li> 
-                                                                        <a href="javascript:void(0);"><i className="la la-info"></i> <span>Change Log</span> <span className="badge badge-primary ml-auto">v3.4</span></a>
+                                                                        <a href="#"><i className="la la-info"></i> <span>Change Log</span> <span className="badge badge-primary ml-auto">v3.4</span></a>
                                                                 </li>
                                                                 <li className="submenu">
-                                                                        <a href="javascript:void(0);"><i className="la la-share-alt"></i> <span>Multi Level</span> <span className="menu-arrow"></span></a>
+                                                                        <a href="#"><i className="la la-share-alt"></i> <span>Multi Level</span> <span className="menu-arrow"></span></a>
                                                                         <ul style={{display: 'none'}}>
                                                                                 <li className="submenu">
-                                                                                        <a href="javascript:void(0);"> <span>Level 1</span> <span className="menu-arrow"></span></a>
+                                                                                        <a href="#"> <span>Level 1</span> <span className="menu-arrow"></span></a>
                                                                                         <ul style={{display: 'none'}}>
-                                                                                                <li><a href="javascript:void(0);"><span>Level 2</span></a></li>
+                                                                                                <li><a href="#"><span>Level 2</span></a></li>
                                                                                                 <li className="submenu">
-                                                                                                        <a href="javascript:void(0);"> <span> Level 2</span> <span className="menu-arrow"></span></a>
+                                                                                                        <a href="#"> <span> Level 2</span> <span className="menu-arrow"></span></a>
                                                                                                         <ul style={{display: 'none'}}>
-                                                                                                                <li><a href="javascript:void(0);">Level 3</a></li>
-                                                                                                                <li><a href="javascript:void(0);">Level 3</a></li>
+                                                                                                                <li><a href="#">Level 3</a></li>
+                                                                                                                <li><a href="#">Level 3</a></li>
                                                                                                         </ul>
                                                                                                 </li>
-                                                                                                <li><a href="javascript:void(0);"> <span>Level 2</span></a></li>
+                                                                                                <li><a href="#"> <span>Level 2</span></a></li>
                                                                                         </ul>
                                                                                 </li>
                                                                                 <li>
-                                                                                        <a href="javascript:void(0);"> <span>Level 1</span></a>
+                                                                                        <a href="#"> <span>Level 1</span></a>
                                                                                 </li>
                                                                         </ul>
                                                                 </li>

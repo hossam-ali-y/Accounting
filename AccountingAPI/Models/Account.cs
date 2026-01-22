@@ -17,7 +17,7 @@ namespace AccountingAPI.Data
 
                 public int Id { get; set; }
                 public string Cid { get; set; }
-                public int ParentId { get; set; }
+                public int? ParentId { get; set; }
                 public string ParentCid { get; set; }
                 public string AccountName { get; set; }
                 public bool IsMaster { get; set; }

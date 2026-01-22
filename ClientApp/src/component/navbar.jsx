@@ -26,7 +26,7 @@ const Navbar = (props) => {
                         </div>
 
 
-                        <a id="toggle_btn" href="javascript:void(0);">
+                        <a id="toggle_btn" href="#">
                                 <span className="bar-icon">
                                         <span></span>
                                         <span></span>
@@ -48,7 +48,7 @@ const Navbar = (props) => {
 
                                 <li className="nav-item">
                                         <div className="top-nav-search">
-                                                <a href="javascript:void(0);" className="responsive-search">
+                                                <a href="#" className="responsive-search">
                                                         <i className="fa fa-search"></i>
                                                 </a>
                                                 <form action="search.html">
@@ -65,16 +65,16 @@ const Navbar = (props) => {
                                                 <img src="assets/img/flags/us.png" alt="" height="20" /> <span>English</span>
                                         </a>
                                         <div className="dropdown-menu dropdown-menu-right">
-                                                <a href="javascript:void(0);" className="dropdown-item">
+                                                <a href="#" className="dropdown-item">
                                                         <img src="assets/img/flags/us.png" alt="" height="16" /> English
                                                 </a>
-                                                <a href="javascript:void(0);" className="dropdown-item">
+                                                <a href="#" className="dropdown-item">
                                                         <img src="assets/img/flags/fr.png" alt="" height="16" /> French
                                                 </a>
-                                                <a href="javascript:void(0);" className="dropdown-item">
+                                                <a href="#" className="dropdown-item">
                                                         <img src="assets/img/flags/es.png" alt="" height="16" /> Spanish
                                                 </a>
-                                                <a href="javascript:void(0);" className="dropdown-item">
+                                                <a href="#" className="dropdown-item">
                                                         <img src="assets/img/flags/de.png" alt="" height="16" /> German
                                                 </a>
                                         </div>
@@ -89,7 +89,7 @@ const Navbar = (props) => {
                                         <div className="dropdown-menu notifications">
                                                 <div className="topnav-dropdown-header">
                                                         <span className="notification-title">Notifications</span>
-                                                        <a href="javascript:void(0)" className="clear-noti"> Clear All </a>
+                                                        <a href="#" className="clear-noti"> Clear All </a>
                                                 </div>
                                                 <div className="noti-content">
                                                         <ul className="notification-list">
@@ -173,7 +173,7 @@ const Navbar = (props) => {
                                         <div className="dropdown-menu notifications">
                                                 <div className="topnav-dropdown-header">
                                                         <span className="notification-title">Messages</span>
-                                                        <a href="javascript:void(0)" className="clear-noti"> Clear All </a>
+                                                        <a href="#" className="clear-noti"> Clear All </a>
                                                 </div>
                                                 <div className="noti-content">
                                                         <ul className="notification-list">

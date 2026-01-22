@@ -1,0 +1,47 @@
+name: Deploy Client to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - name: Install client dependencies
+        run: |
+          cd ClientApp
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ] || [ -f yarn.lock ]; then
+            npm ci --legacy-peer-deps --no-audit --prefer-offline
+          else
+            npm install --legacy-peer-deps --no-audit --prefer-offline
+          fi
+        shell: bash
+
+      - name: Build client app
+        run: |
+          cd ClientApp
+          npm run build
+        shell: bash
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: ClientApp/dist
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          clean: true

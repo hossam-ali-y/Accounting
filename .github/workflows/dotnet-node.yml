@@ -33,6 +33,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+          cache-dependency-path: |
+            ClientApp/package-lock.json
+            ClientApp/yarn.lock
+            ClientApp/npm-shrinkwrap.json
 
       - name: Install client dependencies
         working-directory: ClientApp

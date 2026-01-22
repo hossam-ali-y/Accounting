@@ -19,17 +19,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-
-      - name: Restore NuGet packages
-        run: dotnet restore AccountingAPI/AccountingAPI.csproj
-
-      - name: Build .NET
-        run: dotnet build AccountingAPI/AccountingAPI.csproj --configuration Release --no-restore
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -53,6 +42,25 @@ jobs:
       - name: Build client app
         working-directory: ClientApp
         run: npm run build --if-present
+
+      - name: Copy client build to API wwwroot
+        run: |
+          echo "Preparing wwwroot"
+          rm -rf AccountingAPI/wwwroot || true
+          mkdir -p AccountingAPI/wwwroot
+          cp -a ClientApp/dist/. AccountingAPI/wwwroot/
+        shell: bash
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore NuGet packages
+        run: dotnet restore AccountingAPI/AccountingAPI.csproj
+
+      - name: Build .NET
+        run: dotnet build AccountingAPI/AccountingAPI.csproj --configuration Release --no-restore
 
       - name: Report
         run: echo "Build finished"

@@ -97,9 +97,15 @@ namespace AccountingAPI
                         app.UseCors("CorsPolicy");
                         app.UseAuthorization();
 
+                        // Serve static files from wwwroot (ClientApp build output)
+                        app.UseDefaultFiles();
+                        app.UseStaticFiles();
+
                         app.UseEndpoints(endpoints =>
                         {
                                 endpoints.MapControllers();
+                                // Fallback to serve index.html for SPA routes
+                                endpoints.MapFallbackToFile("index.html");
                         });
                 }
         }

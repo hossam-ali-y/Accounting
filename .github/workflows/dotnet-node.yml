@@ -1,0 +1,46 @@
+name: .NET 5 + Node CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+        dotnet-version: [5.0.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+
+      - name: Restore NuGet packages
+        run: dotnet restore AccountingAPI/AccountingAPI.csproj
+
+      - name: Build .NET
+        run: dotnet build AccountingAPI/AccountingAPI.csproj --configuration Release --no-restore
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install client dependencies
+        working-directory: ClientApp
+        run: npm ci
+
+      - name: Build client app
+        working-directory: ClientApp
+        run: npm run build --if-present
+
+      - name: Report
+        run: echo "Build finished"

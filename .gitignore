@@ -1,3 +1,43 @@
+## Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+
+## Build folders
+bin/
+obj/
+
+## Rider/IDE
+.idea/
+.vscode/
+
+## Logs and databases
+*.log
+*.sqlite3
+*.db
+*.db-journal
+
+## Node
+node_modules/
+ClientApp/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+## Client build
+ClientApp/build/
+dist/
+
+## Environment files
+.env
+ClientApp/.env
+appsettings.Development.json
+AccountingAPI.csproj.user
+
+## Misc
+*.DS_Store
+*.class
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
